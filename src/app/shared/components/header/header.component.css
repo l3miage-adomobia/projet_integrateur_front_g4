@@ -1,0 +1,40 @@
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 110px;
+    box-shadow: var(--header-box-shadow);
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.logo {
+    width: 125px;
+}
+
+nav {
+    display: flex;
+    gap: 3rem;
+}
+
+a {
+    display: block;
+    height: 100%;
+    text-decoration: none;
+    color: black;
+    font-family: var(--font-text);
+    line-height: 1;
+}
+
+a:hover {
+    opacity: 0.8;
+}
+
+mat-icon {
+    height: 45px;
+    width: 45px;
+    font-size: 45px;
+    color: var(--naples-yellow);
+    vertical-align: middle;
+}
