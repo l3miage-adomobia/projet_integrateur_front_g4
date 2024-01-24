@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap');
+
+:root {
+  --naples-yellow: #f0ad4e;
+  --turquoise: #30d5c8;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #f7f7f7;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.banner {
+  background-image: url('/assets/images/banner-image.png');
+  background-size: cover;
+  background-position: center;
+  height: 800px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  font-size: 3rem;
+  margin-top: -20%;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.search-box {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 1rem;
+  border-radius: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 1000px;
+  width: 80%;
+  margin-top: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-group {
+  display: flex;
+  width: 100%;
+  justify-content: space-between; /* This will space out your inputs */
+  flex-wrap: nowrap; /* Prevent wrapping of child elements */
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center; /* Align the icon and input */
+}
+
+.input-group > .input-wrapper > .form-control {
+  border-radius: 25px;
+  padding: 0.75rem 1rem;
+  border: 2px solid #ddd;
+  font-size: 1rem;
+  flex-grow: 1; /* Allow the input to grow */
+}
+
+.btn-primary {
+  background-color: var(--naples-yellow);
+  border-color: var(--naples-yellow);
+  color: #fff;
+  padding: 0.5rem 5rem;
+  border-radius: 25px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  margin-top: 0.75rem; /* Space above the button */
+}
+
+.btn-primary:hover {
+  background-color: var(--turquoise);
+  border-color: var(--turquoise);
+}
+
+@media (max-width: 992px) {
+  .input-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .input-group > .input-wrapper > .form-control,
+  .btn-primary {
+    width: 100%; /* Full width on smaller screens */
+    margin-bottom: 0.5rem; /* Space between inputs and the button */
+  }
+
+  .input-group > .input-wrapper:last-child > .form-control {
+    margin-bottom: 0; /* No space below the last input */
+  }
+
+  .btn-primary {
+    margin-top: 1rem; /* More space above the button on smaller screens */
+  }
+}
+.input-icon i {
+    color: #555; /* Couleur de l'icône */
+    font-size: 1rem; /* Taille de l'icône */
+    /* Autres styles si nécessaire */
+  }
+  

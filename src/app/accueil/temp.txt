@@ -1,0 +1,113 @@
+<div class="banner">
+    <h1>Découvrez votre aventure festiCar</h1>
+    <div class="search-box">
+      <div class="input-group">
+        <div class="input-wrapper">
+          <input type="text" class="form-control" placeholder="Nom...">
+        </div>
+        <div class="input-wrapper">
+          <input type="text" class="form-control" placeholder="Date...">
+          <span class="input-icon"><!-- Icône pour la Date --></span>
+        </div>
+        <div class="input-wrapper">
+          <input type="text" class="form-control" placeholder="Lieu...">
+          <span class="input-icon"><!-- Icône pour le Lieu --></span>
+        </div>
+        <div class="input-wrapper">
+          <input type="text" class="form-control" placeholder="Thème...">
+        </div>
+      </div>
+      <button class="btn btn-primary">Trouver un festival</button>
+    </div>
+  </div>
+  
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap');
+
+/* Application de la police personnalisée à tout le document */
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #f7f7f7; /* Couleur de fond légère pour l'ensemble de la page */
+}
+
+.banner {
+  background-image: url('/assets/images/banner-image.png');
+  background-size: cover;
+  background-position: center;
+  height: 800px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* Centrer le contenu horizontalement et verticalement */
+}
+
+h1 {
+  font-size: 3rem;
+  margin-top: -20%; /* Positionner le titre en fonction de la hauteur du banner */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.search-box {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 1rem;
+  border-radius: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 800px;
+  width: 80%; /* S'assure que le search-box ne soit pas trop large */
+  margin-top: 5%; /* Positionner le search-box en fonction de la hauteur du banner */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-group {
+  display: flex;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.input-group > .form-control {
+  flex: 1; /* Assure que les inputs occupent l'espace disponible */
+  margin-right: 1rem; /* Espacement entre les inputs */
+  border: 2px solid #ddd;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+
+.input-group > .form-control:last-child {
+  margin-right: 0; /* Pas d'espacement à droite pour le dernier input */
+}
+
+.btn-primary {
+  background-color: var(--naples-yellow);
+  border-color:  var(--naples-yellow);
+  color: #fff;
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  font-size: 1rem;
+  width: 100%; /* Le bouton occupe toute la largeur */
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--turquoise);
+  border-color: var(--turquoise);
+}
+
+/* Règles média pour la réactivité */
+@media (max-width: 768px) {
+  .input-group {
+    flex-direction: column;
+  }
+
+  .input-group > .form-control {
+    margin-right: 1rem;
+    margin-bottom: 0.1rem; /* Espacement sous chaque input */
+  }
+
+  .input-group > .form-control:last-child {
+    margin-bottom: 0; /* Pas d'espacement en bas pour le dernier input */
+  }
+}
+
