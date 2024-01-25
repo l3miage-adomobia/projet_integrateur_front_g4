@@ -1,29 +1,3 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Votre Titre</title>
-
-    <!-- Importation des icônes Material Icons -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
-    <!-- Importation de Font Awesome -->
-    <!-- Si vous utilisez toujours Font Awesome, vous pouvez inclure cette ligne -->
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-3XMRQjNcEx3SdTozGMAJiD6+PjG4Lqpky9lZroTqn1/+RS16u72O6O8R+DcJK4IpVMC7ZkMz/4ktU5eGn97nvpg==" crossorigin="anonymous" /> -->
-
-    <!-- Vos autres balises meta, liens vers les feuilles de style, etc. vont ici -->
-    
-    <style>
-
-        /* Ajoutez le style pour l'icône Material Icons */
-        .input-icon i.material-icons {
-            color: #555; /* Couleur de l'icône */
-            font-size: 1rem; /* Taille de l'icône */
-            /* Autres styles si nécessaire */
-        }
-    </style>
-</head>
 <body>
     <div class="banner">
         <h1>Découvrez votre aventure festiCar</h1>
@@ -33,23 +7,17 @@
                     <input type="text" class="form-control" placeholder="Nom...">
                 </div>
                 <div class="input-wrapper">
-                    <input type="text" class="form-control" placeholder="Date..">
-                    <!-- Utilisez les classes correctes pour Material Icons -->
-                    <span class="input-icon"><i class="material-icons">event</i></span>
+                    <input type="Date" class="form-control" placeholder="Date..">
                 </div>
                 <div class="input-wrapper">
                     <input type="text" class="form-control" placeholder="Lieu..">
-                    <!-- Utilisez les classes correctes pour Material Icons -->
                     <span class="input-icon"><i class="material-icons">location_on</i></span>
                 </div>
                 <div class="input-wrapper">
                     <input type="text" class="form-control" placeholder="Thème..">
                 </div>
             </div>
-            <button class="btn btn-primary">Trouver un festival</button>
+            <button class="btn btn-primary" (click)="goToSearchFest()">Trouver un festival</button>
         </div>
     </div>
-
-    <!-- Vos scripts JavaScript et autres balises du corps de la page vont ici -->
 </body>
-</html>

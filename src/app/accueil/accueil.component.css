@@ -105,4 +105,9 @@ h1 {
     font-size: 1rem; /* Taille de l'icône */
     /* Autres styles si nécessaire */
   }
-  
+
+  .input-icon i.material-icons {
+    color: #555; /* Couleur de l'icône */
+    font-size: 1rem; /* Taille de l'icône */
+    /* Autres styles si nécessaire */
+}

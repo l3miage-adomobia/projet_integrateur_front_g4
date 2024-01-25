@@ -1,2 +1,4 @@
-# Ignorer le répertoire node_modules
+# Ignorer les répertoires
 node_modules/
+.angular/
+dist/

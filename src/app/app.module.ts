@@ -8,7 +8,9 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './shared/components/header/header.component';
 import {MatIconModule} from "@angular/material/icon";
+import { MatStepperModule } from '@angular/material/stepper';
 import { AccueilComponent } from './accueil/accueil.component';
+import { SearchFestComponent } from './search-fest/search-fest.component';
 
 // state related imports
 // import { StoreModule } from '@ngrx/store';
@@ -21,7 +23,8 @@ import { AccueilComponent } from './accueil/accueil.component';
   declarations: [
     AppComponent,
     HeaderComponent,
-    AccueilComponent
+    AccueilComponent,
+    SearchFestComponent
   ],
     imports: [
         BrowserModule,
@@ -30,6 +33,7 @@ import { AccueilComponent } from './accueil/accueil.component';
         ReactiveFormsModule,
         HttpClientModule,
         MatIconModule,
+        MatStepperModule,
         /**
          * StoreModule.forRoot is imported once in the root module, accepting a reducer
          * function or object map of reducer functions. If passed an object of

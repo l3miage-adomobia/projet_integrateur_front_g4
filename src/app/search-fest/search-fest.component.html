@@ -1,0 +1,45 @@
+<mat-stepper [linear]="true" #stepper>
+    <mat-step >
+        <ng-template matStepLabel>Fill out your name</ng-template>
+    </mat-step>
+    <mat-step  label="Fill out your address">
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+    </mat-step>
+</mat-stepper>
+<div class="search-results">
+    <div class="filtre-recherche">
+        <div class="input-group">
+            <div class="input-wrapper">
+                <input type="text" class="form-control" placeholder="Nom...">
+            </div>
+            <div class="input-wrapper">
+                <input type="date" class="form-control" placeholder="Date..">
+            </div>
+            <div class="input-wrapper">
+                <input type="text" class="form-control" placeholder="Lieu..">
+                <span class="input-icon"><i class="material-icons">location_on</i></span>
+            </div>
+            <div class="input-wrapper">
+                <input type="text" class="form-control" placeholder="Thème..">
+            </div>
+        </div>
+    </div>
+    <div *ngFor="let fest of festivals" class="festival-card" >
+      <div class="festival-info">
+        <a href="fest.siteWeb" target="_blank"><h3 >{{ fest.nomFestival }}</h3></a>
+        <p>{{ fest.sousDomaine }}</p>
+        <p>{{ fest.dateDebut }}</p>
+        <p>{{ fest.lieuPrincipal }}</p>
+        <p>{{ fest.tarif }}€</p>
+      </div>
+      <div class="festival-actions">
+        <mat-icon (click)="onFestivalClick(fest, true, $event)">add_circle_outline</mat-icon>
+        <div class="click-count">{{ getClickCount(fest) }}</div>
+        <mat-icon (click)="onFestivalClick(fest, false, $event)">remove_circle_outline</mat-icon>
+      </div>
+    </div>
+  </div>
+
+  
