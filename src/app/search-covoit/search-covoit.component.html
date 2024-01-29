@@ -1,0 +1,47 @@
+<div class="stepper">
+    <div class="step active">1</div>
+    <div class="line"></div>
+    <div class="step current">2</div>
+    <div class="line"></div>
+    <div class="step">3</div>
+  </div>
+  <h1 class="titre">Trouvez votre covoiturage pour</h1><br/>
+  <h1 class="titre">Rio Loco !</h1><!--A remplacer plus tard par nom festival-->
+  <div class="search-results">
+      <div class="filtre-recherche">
+          <div class="input-group">
+              <div class="input-wrapper">
+                  <input type="date" class="form-control" placeholder="Date..">
+              </div>
+              <div class="input-wrapper">
+                  <input type="text" class="form-control" placeholder="Lieu départ..">
+                  <span class="input-icon"><i class="material-icons">location_on</i></span>
+              </div>
+              <div class="input-wrapper">
+                  <input type="text" class="form-control" placeholder="nbplaces..">
+              </div>
+          </div>
+      </div>
+      <div *ngFor="let covoiturage of offresCovoiturage" class="festival-card" >
+        <div class="festival-info">
+          <h3 >{{ covoiturage.covoitureur.nom }}</h3>
+          <h3>{{ covoiturage.modeleVoiture }}</h3>
+          <h3>{{ covoiturage.etapes[0].depart }}</h3>
+          <h3>{{ covoiturage.etapes[0].heureDepart }} </h3>
+          <h3>{{ covoiturage.nbPlacesOffertes }}</h3> 
+          <h3>{{ covoiturage.etapes[0].tarif }}€</h3>
+        </div>
+        <div class="festival-actions">
+          <mat-icon (click)="onCovoiturageClick(covoiturage, true, $event)">add_circle_outline</mat-icon>
+          <div class="click-count">{{ getClickCount(covoiturage) }}</div>
+          <mat-icon (click)="onCovoiturageClick(covoiturage, false, $event)">remove_circle_outline</mat-icon>
+        </div>
+        <mat-icon>add_shopping_cart</mat-icon>
+      </div>
+    </div>
+    <div class="pagination">
+      <button (click)="onPageChange(false)" [disabled]="page === 1">Previous</button>
+      <span>{{ page }}</span>
+      <button (click)="onPageChange(true)">Next</button>
+    </div>
+    

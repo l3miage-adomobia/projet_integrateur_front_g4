@@ -1,3 +1,42 @@
+/* Styles pour le stepper */
+.stepper {
+  display: flex;
+  margin-top: 1%;
+  margin-bottom: 1.5%;
+  align-items: center;
+  justify-content: center;
+  max-width: 15%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.step {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+.active {
+  background:var(--naples-yellow); /* Active step color */
+}
+.current {
+  background: #ccc; /* Current step color */
+}
+.line {
+  height: 3px;
+  flex-grow: 1;
+  background: #ccc;
+}
+
+.titre {
+  display: flex;
+  justify-content: center; /* Aligne horizontalement le contenu au centre */
+  align-items: center; /* Aligne verticalement le contenu au centre */
+}
+
 /* Variables */
 :root {
     --yellow: #FFD700; /* Adjust this color to match your design */
@@ -101,10 +140,29 @@
     }
   }  
 
-  .mat-stepper-horizontal {
-    margin-top: 8px;
-  }
-  
-  .mat-mdc-form-field {
-    margin-top: 16px;
-  }
+.mat-paginator{
+  display: flex;
+  position: absolute;
+  bottom: 0;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}

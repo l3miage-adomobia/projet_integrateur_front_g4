@@ -1,36 +1,91 @@
-
+<div class="stepper">
+  <div class="step active">1</div>
+  <div class="line"></div>
+  <div class="step current">2</div>
+  <div class="line"></div>
+  <div class="step">3</div>
+</div>
+<h1 class="titre">Trouvez votre festival</h1>
 <div class="search-results">
-    <div class="filtre-recherche">
-        <div class="input-group">
-            <div class="input-wrapper">
-                <input type="text" class="form-control" placeholder="Nom...">
-            </div>
-            <div class="input-wrapper">
-                <input type="date" class="form-control" placeholder="Date..">
-            </div>
-            <div class="input-wrapper">
-                <input type="text" class="form-control" placeholder="Lieu..">
-                <span class="input-icon"><i class="material-icons">location_on</i></span>
-            </div>
-            <div class="input-wrapper">
-                <input type="text" class="form-control" placeholder="Thème..">
-            </div>
+  <div class="filtre-recherche">
+      <div class="input-group" [formGroup]="searchForm">
+          <div class="input-wrapper">
+              <input type="text" class="form-control" placeholder="Nom..." formControlName="name">
+          </div>
+          <div class="input-wrapper">
+              <input type="text" class="form-control" placeholder="Thème.." formControlName="theme">
+          </div>
+          <div class="input-wrapper">
+              <input type="date" class="form-control" placeholder="Date.." formControlName="date">
+          </div>
+          <div class="input-wrapper">
+              <input type="text" class="form-control" placeholder="Lieu.." formControlName="name">
+              <span class="input-icon"><i class="material-icons">location_on</i></span>
+          </div>
+          <div class="input-wrapper">
+            <mat-icon (click)="getFestByName(searchForm.controls['name'].value, $event)">search</mat-icon>
         </div>
-    </div>
-    <div *ngFor="let fest of festivals" class="festival-card" >
-      <div class="festival-info">
-        <a href="fest.siteWeb" target="_blank"><h3 >{{ fest.nomFestival }}</h3></a>
-        <p>{{ fest.sousDomaine }}</p>
-        <p>{{ fest.dateDebut }}</p>
-        <p>{{ fest.lieuPrincipal }}</p>
-        <p>{{ fest.tarif }}€</p>
       </div>
-      <div class="festival-actions">
-        <mat-icon (click)="onFestivalClick(fest, true, $event)">add_circle_outline</mat-icon>
-        <div class="click-count">{{ getClickCount(fest) }}</div>
-        <mat-icon (click)="onFestivalClick(fest, false, $event)">remove_circle_outline</mat-icon>
-      </div>
-    </div>
   </div>
 
+<table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="nomFestival">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by nomFestival">
+      nomFestival
+    </th>
+    <td mat-cell *matCellDef="let element"> 
+      <a href="element.siteWeb" target="_blank">{{element.nomFestival}}</a>
+    </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="domaine">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by domaine">
+      domaine
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.domaine}} </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="dateDebut">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by dateDebut">
+      dateDebut
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.dateDebut}} </td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="lieuPrincipal">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by lieuPrincipal">
+      lieuPrincipal
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.lieuPrincipal}} </td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="tarif">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by tarif">
+      tarif
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.tarif}}   
+     
+      <div class="festival-actions">
+        <mat-icon (click)="onFestivalClick(element, true, $event)">add_circle_outline</mat-icon>
+        <div class="click-count">{{ getClickCount(element) }}</div>
+        <mat-icon (click)="onFestivalClick(element, false, $event)">remove_circle_outline</mat-icon>
+        <mat-icon (click)="goToSearchCovoit()">arrow_forward</mat-icon>
+      </div>
+    </td>
+  </ng-container>
   
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+  <div class="pagination">
+    <button (click)="onPageChange(false)" [disabled]="page === 1">Previous</button>
+    <span>{{ page }}</span>
+    <button (click)="onPageChange(true)">Next</button>
+  </div>

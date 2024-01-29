@@ -1,25 +1,26 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {AngularFireModule} from "@angular/fire/compat";
-import {AppRoutingModule} from './app-routing.module';
-import {HttpClientModule} from '@angular/common/http';
-import {AppComponent} from './app.component';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {HeaderComponent} from './shared/components/header/header.component';
+
+import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
+import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HeaderComponent } from './shared/components/header/header.component';
 import {MatIconModule} from "@angular/material/icon";
-import {MatStepperModule} from '@angular/material/stepper';
-import {AccueilComponent} from './accueil/accueil.component';
-import {SearchFestComponent} from './search-fest/search-fest.component';
-import {AuthentificationComponent} from './authentification/authentification.component';
-import {environment} from "../environments/environment";
-import {AngularFireAuthModule} from "@angular/fire/compat/auth";
+import { MatStepperModule } from '@angular/material/stepper';
+import { AccueilComponent } from './accueil/accueil.component';
+import { SearchFestComponent } from './search-fest/search-fest.component';
+import {AngularFireModule} from "@angular/fire/compat";
 import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {MatMenuModule} from "@angular/material/menu";
+import {AngularFireAuthModule} from "@angular/fire/compat/auth";
+import {environment} from "../environments/environment";
 import {MatExpansionModule} from "@angular/material/expansion";
-import {ConfirmDialogComponent} from './shared/components/confirm-dialog/confirm-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
-
+import {MatSortModule} from "@angular/material/sort";
+import {MatTableModule} from "@angular/material/table";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 // state related imports
 // import { StoreModule } from '@ngrx/store';
@@ -29,14 +30,12 @@ import {MatDialogModule} from "@angular/material/dialog";
 // import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        HeaderComponent,
-        AccueilComponent,
-        SearchFestComponent,
-        AuthentificationComponent,
-        ConfirmDialogComponent
-    ],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    AccueilComponent,
+    SearchFestComponent
+  ],
     imports: [
         BrowserModule,
         AppRoutingModule,
@@ -54,6 +53,9 @@ import {MatDialogModule} from "@angular/material/dialog";
         NgOptimizedImage,
         MatExpansionModule,
         MatDialogModule,
+        MatPaginatorModule,
+        MatTableModule,
+        MatSortModule,
         /**
          * StoreModule.forRoot is imported once in the root module, accepting a reducer
          * function or object map of reducer functions. If passed an object of
@@ -88,8 +90,7 @@ import {MatDialogModule} from "@angular/material/dialog";
          * See: https://github.com/ngrx/platform/blob/master/docs/effects/api.md#forroot
          */
     ],
-    providers: [],
-    bootstrap: [AppComponent]
+  providers: [],
+  bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule { }
