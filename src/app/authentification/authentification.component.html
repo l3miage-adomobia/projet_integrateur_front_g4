@@ -1,0 +1,35 @@
+<section class="container forms">
+    <div class="form login">
+        <header>Login</header>
+        <form (ngSubmit)="signInWithGoogle()">
+            <div class="field input-field">
+                <input name="email" ngModel="mail" placeholder="Email" type="email">
+                <input name="password" ngModel="password" placeholder="Password" type="password">
+            </div>
+            <div class="field button-field">
+                <button type="submit">Login</button>
+            </div>
+            <div class="form-link">
+                <a routerLink="/signup">Don't have an account? Signup</a>
+            </div>
+        </form>
+    </div>
+
+    <div class="form signup">
+        <header>Signup</header>
+        <form (ngSubmit)="signInWithGoogle()">
+            <div class="field input-field">
+                <input name="email" placeholder="Email" type="email">
+                <input name="password" placeholder="Create password" type="password">
+                <input name="confirmPassword" placeholder="Confirm password" type="password">
+            </div>
+            <div class="field button-field">
+                <button type="submit">Signup</button>
+            </div>
+            <div class="form-link">
+                <a routerLink="/login">Already have an account? Login</a>
+            </div>
+        </form>
+    </div>
+    <button (click)="signInWithGoogle()">Google</button>
+</section>

@@ -14,7 +14,11 @@ import {SearchFestComponent} from './search-fest/search-fest.component';
 import {AuthentificationComponent} from './authentification/authentification.component';
 import {environment} from "../environments/environment";
 import {AngularFireAuthModule} from "@angular/fire/compat/auth";
-import {CommonModule} from "@angular/common";
+import {CommonModule, NgOptimizedImage} from "@angular/common";
+import {MatMenuModule} from "@angular/material/menu";
+import {MatExpansionModule} from "@angular/material/expansion";
+import {ConfirmDialogComponent} from './shared/components/confirm-dialog/confirm-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 
 // state related imports
@@ -30,7 +34,8 @@ import {CommonModule} from "@angular/common";
         HeaderComponent,
         AccueilComponent,
         SearchFestComponent,
-        AuthentificationComponent
+        AuthentificationComponent,
+        ConfirmDialogComponent
     ],
     imports: [
         BrowserModule,
@@ -45,6 +50,10 @@ import {CommonModule} from "@angular/common";
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireAuthModule,
         CommonModule,
+        MatMenuModule,
+        NgOptimizedImage,
+        MatExpansionModule,
+        MatDialogModule,
         /**
          * StoreModule.forRoot is imported once in the root module, accepting a reducer
          * function or object map of reducer functions. If passed an object of

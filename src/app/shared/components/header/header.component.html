@@ -1,21 +1,32 @@
 <header>
-    <a routerLink="/home">
+    <a routerLink="/">
         <img class="logo" src="../../../../assets/logo/festicar-logo-white.png">
     </a>
     <nav>
-        <a routerLink="/login">
-            <ng-container *ngIf="currentUser.photoURL; else loginIcon">
+        <ng-container *ngIf="currentUser.name; else loginLink">
+            <div class="user-info">
                 <img [src]="currentUser.photoURL" class="user-photo">
-            </ng-container>
-            <ng-template #loginIcon>
+                <span class="user-name">Bienvenue, {{ currentUser.name.toUpperCase() }} !</span>
+                <a class="nav-link" routerLink="/orders">
+                    <mat-icon>list</mat-icon>
+                    Voir les commandes
+                </a>
+                <a (click)="confirmLogout()" class="nav-link">
+                    <mat-icon>logout</mat-icon>
+                    Déconnexion
+                </a>
+            </div>
+        </ng-container>
+        <ng-template #loginLink>
+            <a routerLink="/login">
                 <mat-icon>account_circle</mat-icon>
-            </ng-template>
-            {{ currentUser.name ? currentUser.name : 'Connexion' }}
-
-        </a>
+                Connexion
+            </a>
+        </ng-template>
 
         <a routerLink="/cart">
             <mat-icon>shopping_cart</mat-icon>
-            Panier(0)</a>
+            Panier(0)
+        </a>
     </nav>
 </header>

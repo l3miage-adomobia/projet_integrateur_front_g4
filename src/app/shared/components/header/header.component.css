@@ -46,3 +46,18 @@ mat-icon {
     border-radius: 50%;
     vertical-align: middle;
 }
+
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+}
+
