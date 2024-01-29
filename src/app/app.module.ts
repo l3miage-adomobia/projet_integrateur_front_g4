@@ -2,15 +2,21 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import {MatSort, Sort, MatSortModule} from '@angular/material/sort';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import {MatIconModule} from "@angular/material/icon";
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatPaginatorModule } from '@angular/material/paginator';
+
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './shared/components/header/header.component';
-import {MatIconModule} from "@angular/material/icon";
-import { MatStepperModule } from '@angular/material/stepper';
+
 import { AccueilComponent } from './accueil/accueil.component';
 import { SearchFestComponent } from './search-fest/search-fest.component';
+import { SearchCovoitComponent } from './search-covoit/search-covoit.component';
 
 // state related imports
 // import { StoreModule } from '@ngrx/store';
@@ -24,7 +30,8 @@ import { SearchFestComponent } from './search-fest/search-fest.component';
     AppComponent,
     HeaderComponent,
     AccueilComponent,
-    SearchFestComponent
+    SearchFestComponent,
+    SearchCovoitComponent
   ],
     imports: [
         BrowserModule,
@@ -34,6 +41,10 @@ import { SearchFestComponent } from './search-fest/search-fest.component';
         HttpClientModule,
         MatIconModule,
         MatStepperModule,
+        MatPaginatorModule,
+        MatTableModule,
+        MatSortModule,
+
         /**
          * StoreModule.forRoot is imported once in the root module, accepting a reducer
          * function or object map of reducer functions. If passed an object of

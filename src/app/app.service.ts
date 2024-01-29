@@ -18,9 +18,12 @@ export class AppService {
     return this.http.get<ModelApi.Domaine[]>(this.api_Url+'domaines');
   }*/
 
-  getFestivals(): Observable<ModelApi.Festival[]> {
-    return this.http.get<ModelApi.Festival[]>(this.api_Url+'festival');
+  getFestivals(page : number): Observable<ModelApi.Festival[]> {
+    return this.http.get<ModelApi.Festival[]>(this.api_Url+'festivals/page/'+page.toString());
   }
 
+  getFestivalsByName(fName : string): Observable<ModelApi.Festival[]> {
+    return this.http.get<ModelApi.Festival[]>(this.api_Url+'festivals/filtre/nom/'+fName);
+  }
 
 }
