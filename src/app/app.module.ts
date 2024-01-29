@@ -1,16 +1,21 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
-
-import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HeaderComponent } from './shared/components/header/header.component';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AngularFireModule} from "@angular/fire/compat";
+import {AppRoutingModule} from './app-routing.module';
+import {HttpClientModule} from '@angular/common/http';
+import {AppComponent} from './app.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {HeaderComponent} from './shared/components/header/header.component';
 import {MatIconModule} from "@angular/material/icon";
-import { MatStepperModule } from '@angular/material/stepper';
-import { AccueilComponent } from './accueil/accueil.component';
-import { SearchFestComponent } from './search-fest/search-fest.component';
+import {MatStepperModule} from '@angular/material/stepper';
+import {AccueilComponent} from './accueil/accueil.component';
+import {SearchFestComponent} from './search-fest/search-fest.component';
+import {AuthentificationComponent} from './authentification/authentification.component';
+import {environment} from "../environments/environment";
+import {AngularFireAuthModule} from "@angular/fire/compat/auth";
+import {CommonModule} from "@angular/common";
+
 
 // state related imports
 // import { StoreModule } from '@ngrx/store';
@@ -20,12 +25,13 @@ import { SearchFestComponent } from './search-fest/search-fest.component';
 // import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    AccueilComponent,
-    SearchFestComponent
-  ],
+    declarations: [
+        AppComponent,
+        HeaderComponent,
+        AccueilComponent,
+        SearchFestComponent,
+        AuthentificationComponent
+    ],
     imports: [
         BrowserModule,
         AppRoutingModule,
@@ -34,6 +40,11 @@ import { SearchFestComponent } from './search-fest/search-fest.component';
         HttpClientModule,
         MatIconModule,
         MatStepperModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFireAuthModule,
+        CommonModule,
         /**
          * StoreModule.forRoot is imported once in the root module, accepting a reducer
          * function or object map of reducer functions. If passed an object of
@@ -68,7 +79,8 @@ import { SearchFestComponent } from './search-fest/search-fest.component';
          * See: https://github.com/ngrx/platform/blob/master/docs/effects/api.md#forroot
          */
     ],
-  providers: [],
-  bootstrap: [AppComponent]
+    providers: [],
+    bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

@@ -7,6 +7,7 @@ header {
     box-shadow: var(--header-box-shadow);
     padding-right: 20px;
     padding-left: 20px;
+    background-color: white;
 }
 
 .logo {
@@ -36,5 +37,12 @@ mat-icon {
     width: 45px;
     font-size: 45px;
     color: var(--naples-yellow);
+    vertical-align: middle;
+}
+
+.user-photo {
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
     vertical-align: middle;
 }

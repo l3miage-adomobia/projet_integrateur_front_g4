@@ -4,8 +4,16 @@
     </a>
     <nav>
         <a routerLink="/login">
-            <mat-icon>account_circle</mat-icon>
-            Connexion</a>
+            <ng-container *ngIf="currentUser.photoURL; else loginIcon">
+                <img [src]="currentUser.photoURL" class="user-photo">
+            </ng-container>
+            <ng-template #loginIcon>
+                <mat-icon>account_circle</mat-icon>
+            </ng-template>
+            {{ currentUser.name ? currentUser.name : 'Connexion' }}
+
+        </a>
+
         <a routerLink="/cart">
             <mat-icon>shopping_cart</mat-icon>
             Panier(0)</a>
