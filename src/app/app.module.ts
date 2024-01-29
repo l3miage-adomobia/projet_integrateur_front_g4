@@ -1,16 +1,18 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HeaderComponent } from './shared/components/header/header.component';
+import {AppRoutingModule} from './app-routing.module';
+import {HttpClientModule} from '@angular/common/http';
+import {AppComponent} from './app.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {HeaderComponent} from './shared/components/header/header.component';
 import {MatIconModule} from "@angular/material/icon";
-import { MatStepperModule } from '@angular/material/stepper';
-import { AccueilComponent } from './accueil/accueil.component';
-import { SearchFestComponent } from './search-fest/search-fest.component';
+import {MatStepperModule} from '@angular/material/stepper';
+import {AccueilComponent} from './accueil/accueil.component';
+import {SearchFestComponent} from './search-fest/search-fest.component';
+import {SearchCovoitComponent} from "./search-covoit/search-covoit.component";
+import {ConfirmDialogComponent} from "./shared/components/confirm-dialog/confirm-dialog.component";
 import {AngularFireModule} from "@angular/fire/compat";
 import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {MatMenuModule} from "@angular/material/menu";
@@ -30,12 +32,14 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 // import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    AccueilComponent,
-    SearchFestComponent
-  ],
+    declarations: [
+        AppComponent,
+        HeaderComponent,
+        AccueilComponent,
+        SearchFestComponent,
+        SearchCovoitComponent,
+        ConfirmDialogComponent
+    ],
     imports: [
         BrowserModule,
         AppRoutingModule,
@@ -90,7 +94,8 @@ import {MatPaginatorModule} from "@angular/material/paginator";
          * See: https://github.com/ngrx/platform/blob/master/docs/effects/api.md#forroot
          */
     ],
-  providers: [],
-  bootstrap: [AppComponent]
+    providers: [],
+    bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
