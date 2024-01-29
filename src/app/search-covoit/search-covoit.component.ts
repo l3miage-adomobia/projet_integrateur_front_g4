@@ -88,4 +88,8 @@ export class SearchCovoitComponent {
     this.page += increment ? 1 : -1;
     //this.getFestivalsPData(this.page);
   }
+
+  goToPanier() {
+    this.router.navigate(['search-covoit']);
+  }
 }

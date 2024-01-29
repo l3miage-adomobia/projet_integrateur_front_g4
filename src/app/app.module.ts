@@ -17,6 +17,8 @@ import { HeaderComponent } from './shared/components/header/header.component';
 import { AccueilComponent } from './accueil/accueil.component';
 import { SearchFestComponent } from './search-fest/search-fest.component';
 import { SearchCovoitComponent } from './search-covoit/search-covoit.component';
+import { PanierComponent } from './panier/panier.component';
+import { CartComponent } from './cart/cart.component';
 
 // state related imports
 // import { StoreModule } from '@ngrx/store';
@@ -31,7 +33,9 @@ import { SearchCovoitComponent } from './search-covoit/search-covoit.component';
     HeaderComponent,
     AccueilComponent,
     SearchFestComponent,
-    SearchCovoitComponent
+    SearchCovoitComponent,
+    PanierComponent,
+    CartComponent
   ],
     imports: [
         BrowserModule,
