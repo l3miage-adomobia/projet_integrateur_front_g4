@@ -1,0 +1,73 @@
+.table-container {
+    display: flex;
+    gap: 5rem;
+    align-items: flex-start;
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+table[mat-table] {
+    flex: 1;
+    border-collapse: separate;
+}
+
+.summary-container {
+    width: 30%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    margin: auto;
+}
+
+.summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+h1 {
+}
+
+h2 {
+    font-size: 11pt;
+}
+
+h3 {
+    font-size: 11pt;
+    display: inline;
+}
+
+.main-table .mat-mdc-row {
+    height: 150px;
+}
+
+.main-table .mat-row:hover {
+    height: 150px;
+    background-color: var(--gradient-bottom-left);
+}
+
+.car-img {
+    width: 60px;
+    height: 60px;
+}
+
+.buy-btn {
+    background-color: var(--naples-yellow);
+    width: 100px;
+    border: none;
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+}
+
+.buy-btn:hover {
+    opacity: 0.8;
+}
+
+mat-icon {
+    color: var(--naples-yellow);
+}
+
+.page-title {
+    margin: 20px;
+}

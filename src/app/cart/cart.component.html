@@ -1,1 +1,104 @@
-<p>cart works!</p>
+<div class="page-title">
+    <h1>Valider vos reservations</h1>
+    <br>
+</div>
+<div class="table-container">
+    <div class="main-table">
+        <table [dataSource]="dataSource" mat-table>
+            <ng-container matColumnDef="car">
+                <th *matHeaderCellDef mat-header-cell></th>
+                <td *matCellDef="let reservation" mat-cell>
+                    <img class="car-img" src="../../assets/images/car-illustration.png"/>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="festival">
+                <th *matHeaderCellDef mat-header-cell>Festival</th>
+                <td *matCellDef="let reservation" mat-cell>
+                    <span> <h2>{{ reservation.nomFestival }} - {{ reservation.domaineFestival }}
+                        /  {{ reservation.sousDomaineFestival }} </h2>
+                    </span><br>
+                    <span> <h3>Du : {{ reservation.dateDebutFestival }}</h3></span><br>
+                    <span> <h3>Au  : {{ reservation.dateFinFestival }}</h3> </span><br>
+                    <span> <h3>A : {{ reservation.lieuPrincipaleFestival }}</h3> </span><br>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="covoiturage">
+                <th *matHeaderCellDef mat-header-cell>Covoiturage</th>
+                <td *matCellDef="let reservation" mat-cell>
+                    <span> <h2>{{ reservation.lieuEtapeCovoiturage }}</h2></span><br>
+                    <span> Départ à : <h3>{{ reservation.heureCovoiturage }}</h3> le <h3>{{ reservation.dateCovoiturage }}</h3></span><br>
+                    <span>Avec <h3>{{ reservation.nomCovoitureur }}</h3> </span><br>
+                    <span>  modèle : <h3>{{ reservation.modeleVehicule }}</h3></span><br>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="prix">
+                <th *matHeaderCellDef mat-header-cell>Prix</th>
+                <td *matCellDef="let reservation"
+                    mat-cell>
+                    {{ reservation.nombrePlacesChoisies * reservation.tarifCovoiturage | number : '.2-2' }}€
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="quantite">
+                <th *matHeaderCellDef mat-header-cell>Quantité</th>
+                <td *matCellDef="let reservation" mat-cell>{{ reservation.nombrePlacesChoisies }}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="sousTotal">
+                <th *matHeaderCellDef mat-header-cell>Sous-Total</th>
+                <td *matCellDef="let reservation"
+                    mat-cell>{{ reservation.nombrePlacesChoisies * reservation.tarifCovoiturage * 2 | number : '.2-2'}}€
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="update">
+                <th *matHeaderCellDef mat-header-cell></th>
+                <td *matCellDef="let reservation">
+                    <button (click)="openConfirmationDialog(reservation.id, 'delete')" mat-icon-button>
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                    <button (click)="openConfirmationDialog(reservation.id, 'update')" mat-icon-button>
+                        <mat-icon>edit</mat-icon>
+                    </button>
+
+                </td>
+            </ng-container>
+
+            <tr *matHeaderRowDef="['car','festival','covoiturage','prix', 'quantite', 'sousTotal','update']"
+                mat-header-row></tr>
+            <tr *matRowDef="let row; columns: ['car','festival','covoiturage', 'prix', 'quantite', 'sousTotal','update']"
+                mat-row></tr>
+        </table>
+        <mat-paginator [length]="reservations_test.length"
+                       [pageSize]="5"
+                       aria-label="Select page">
+        </mat-paginator>
+    </div>
+    <div class="summary-container">
+        <h3>Récapitulatif</h3>
+        <table [dataSource]="reservations_test" class="summary-table" mat-table>
+            <!-- Colonnes du récapitulatif -->
+            <ng-container matColumnDef="produit">
+                <th *matHeaderCellDef mat-header-cell>Produit</th>
+                <td *matCellDef="let element" mat-cell>{{ element.nomFestival }} </td>
+            </ng-container>
+            <ng-container matColumnDef="sousTotal">
+                <th *matHeaderCellDef mat-header-cell>Sous-Total</th>
+                <td *matCellDef="let element"
+                    mat-cell>{{  element.nombrePlacesChoisies * (element.tarifCovoiturage + element.tarifFestival) | number : '.2-2' }}
+                    €
+                </td>
+            </ng-container>
+            <!-- Définition des colonnes -->
+            <tr *matHeaderRowDef="['produit', 'sousTotal']" mat-header-row></tr>
+            <tr *matRowDef="let row; columns: ['produit', 'sousTotal']" mat-row></tr>
+        </table>
+
+        <div class="total-price">
+            <p>Total à payer : {{ calculateTotalPrice() | number : '.2-2'}} €</p>
+            <br>
+            <button class="buy-btn">Payer</button>
+        </div>
+    </div>
+</div>

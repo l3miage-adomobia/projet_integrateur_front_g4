@@ -20,8 +20,7 @@ export class HeaderComponent implements OnInit {
 
     confirmLogout(): void {
         const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-            width: '250px',
-            height: '300px',
+            panelClass: 'custom-modalbox',
             data: {message: 'Êtes-vous sûr de vouloir vous déconnecter ?'}
         });
 
