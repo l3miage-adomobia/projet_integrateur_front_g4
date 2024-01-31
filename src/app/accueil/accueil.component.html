@@ -1,23 +1,25 @@
-<body>
-    <div class="banner">
-        <h1>Découvrez votre aventure festiCar</h1>
-        <div class="search-box">
-            <div class="input-group">
-                <div class="input-wrapper">
-                    <input type="text" class="form-control" placeholder="Nom...">
-                </div>
-                <div class="input-wrapper">
-                    <input type="Date" class="form-control" placeholder="Date..">
-                </div>
-                <div class="input-wrapper">
-                    <input type="text" class="form-control" placeholder="Lieu..">
-                    <span class="input-icon"><i class="material-icons">location_on</i></span>
-                </div>
-                <div class="input-wrapper">
-                    <input type="text" class="form-control" placeholder="Thème..">
-                </div>
-            </div>
-            <button class="btn btn-primary" (click)="goToSearchFest()">Trouver un festival</button>
+<div class="banner">
+    <h1>Découvrez votre aventure festiCar</h1>
+    <div class="search-box">
+      <div class="input-group" [formGroup]="searchForm">
+        <div class="input-wrapper">
+          <input type="text" class="form-control" placeholder="Nom..." formControlName="nomFestival">
         </div>
+        <div class="input-wrapper">
+          <input type="text" class="form-control" placeholder="Thème.." formControlName="nomSousDomaine">
+        </div>
+        <div class="input-wrapper">
+          <input type="date" class="form-control" placeholder="Date.." formControlName="date">
+        </div>
+        <div class="input-wrapper">
+          <input type="text" class="form-control" placeholder="Lieu.." formControlName="lieu">
+          <span class="input-icon"><i class="material-icons">location_on</i></span>
+        </div>
+        <div class="input-wrapper">
+          <input type="text" class="form-control" placeholder="Départ.." formControlName="depart">
+          <span class="input-icon"><i class="material-icons">location_on</i></span>
+        </div>
+      </div>
+      <button class="btn btn-primary" (click)="goToSearchFest()">Trouver un festival</button>
     </div>
-</body>
+  </div>

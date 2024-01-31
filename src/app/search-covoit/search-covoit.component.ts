@@ -1,6 +1,12 @@
-import {Component} from '@angular/core';
-import {OffreCovoiturage} from '../model_api';
-import {Router} from "@angular/router";
+import { Component } from '@angular/core';
+import { Etape, OffreCovoiturage } from '../model_api';
+import { ActivatedRoute, Router } from "@angular/router";
+import { FestivalService } from '../services/fest-covoit/festival.service';
+import { AppService } from '../app.service';
+import { UserService } from '../authentification/service/user.service';
+import { FesticarUser } from '../authentification/service/FesticarUser';
+
+
 
 @Component({
     selector: 'app-search-covoit',
@@ -10,69 +16,43 @@ import {Router} from "@angular/router";
 export class SearchCovoitComponent {
 
     page: number = 1;
-    offresCovoiturage: OffreCovoiturage[] = [
-        {
-            idOffreDeCovoiturage: 1,
-            nbPlacesOffertes: 3,
-            modeleVoiture: "Toyota Prius",
-            etapes: [
-                {depart: "Paris", villeArrivee: "Lyon", heureDepart: "09:00", tarif: 15},
-                {depart: "Lyon", villeArrivee: "Marseille", heureDepart: "12:00", tarif: 10}
-            ],
-            covoitureur: {
-                nom: "Jean Dupont",
-                age: 35,
-                email: "jean.dupont@example.com"
-            }
-        },
-        {
-            idOffreDeCovoiturage: 2,
-            nbPlacesOffertes: 2,
-            modeleVoiture: "Volkswagen Golf",
-            etapes: [
-                {depart: "Lyon", villeArrivee: "Nice", heureDepart: "08:30", tarif: 12},
-                {depart: "Nice", villeArrivee: "Cannes", heureDepart: "11:00", tarif: 8}
-            ],
-            covoitureur: {
-                nom: "Alice Martin",
-                age: 28,
-                email: "alice.martin@example.com"
-            }
-        },
-        {
-            idOffreDeCovoiturage: 3,
-            nbPlacesOffertes: 4,
-            modeleVoiture: "Tesla Model S",
-            etapes: [
-                {depart: "Marseille", villeArrivee: "Nice", heureDepart: "10:00", tarif: 10},
-                {depart: "Nice", villeArrivee: "Monaco", heureDepart: "12:30", tarif: 5}
-            ],
-            covoitureur: {
-                nom: "Thomas Lefevre",
-                age: 40,
-                email: "thomas.lefevre@example.com"
-            }
-        }
-    ];
+    offresCovoiturage: OffreCovoiturage[] = [];
     private clickCounts = new Map<OffreCovoiturage, number>();
+    public currentUser: FesticarUser = { name: '', token: '', photoURL: '', mail: '' };
 
-    constructor(private router: Router) {
-    }
+    constructor(private router: Router,
+        private route: ActivatedRoute,
+        private festivalService: FestivalService,
+        private appService: AppService,
+        private us: UserService
+    ) { }
 
     ngOnInit(): void {
-        /*
-        this.appService.getFestivals().subscribe({
-          next: (data: Festival[]) => {
-            this.festivals = data;
-          },
-          error: (error) => {
-            console.error('Error fetching Festivals:', error);
-          }});*/
+
+        const id = this.route.snapshot.paramMap.get('id');
+        if (id !== null) {
+            this.appService.getCovoiturages(parseInt(id, 10)).subscribe({
+                next: (data: OffreCovoiturage[]) => {
+                    this.offresCovoiturage = data;
+                },
+                error: (error) => {
+                    console.error('Error fetching Festivals:', error);
+                }
+            });
+        } else {
+            console.error('Error: ID is null');
+        }
+
 
         // Initialize click counts for each festival
         this.offresCovoiturage.forEach(covoiturage => {
             this.clickCounts.set(covoiturage, 0);
         });
+
+        this.us.getUser().subscribe(user => {
+            this.currentUser = user;
+        });
+        console.log("mail :" + this.currentUser.mail)
     }
 
     onCovoiturageClick(covoiturage: OffreCovoiturage, increment: boolean, event: MouseEvent): void {
@@ -90,7 +70,8 @@ export class SearchCovoitComponent {
         //this.getFestivalsPData(this.page);
     }
 
-    goToPanier() {
-        this.router.navigate(['search-covoit']);
+    ajoutPanier(mail: string, idEtape: number, nbplaces: number) {
+        console.log("ajout panier"+mail+" " + idEtape + " " + nbplaces);
+        //this.router.navigate(['cart']);
     }
 }
