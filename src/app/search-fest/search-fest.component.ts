@@ -6,6 +6,8 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { AppService } from '../app.service';
 import { Festival } from '../model_api';
+import { FestivalService } from '../services/fest-covoit/festival.service';
+import { FilterFestService } from '../services/filter-fest/filter-fest.service'; 
 
 @Component({
   selector: 'app-search-fest',
@@ -14,8 +16,14 @@ import { Festival } from '../model_api';
 })
 export class SearchFestComponent implements OnInit {
   searchForm: FormGroup = new FormGroup({});
-  festivals: Festival[] = [];
-  displayedColumns: string[] = ['nomFestival', 'domaine', 'dateDebut', 'lieuPrincipal', 'tarif'];
+  /*
+  nomFestival: string = this.filterService.getFilter().name;
+  date: string= this.filterService.getFilter().date; 
+  lieu:string = this.filterService.getFilter().lieu;
+  nomSousDomaine:string = this.filterService.getFilter().nomSousDomaine;
+  depart: string = this.filterService.getFilter().depart;*/
+  festivals: Festival[]  = [];
+  displayedColumns: string[] = ['nomFestival', 'nomSousDomaine', 'dateDebut', 'lieuPrincipal', 'tarif'];
   dataSource = new MatTableDataSource<Festival>(this.festivals);
   private clickCounts = new Map<Festival, number>();
   page: number = 1;
@@ -27,19 +35,23 @@ export class SearchFestComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private _liveAnnouncer: LiveAnnouncer,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private festivalService: FestivalService,
+    private filterService: FilterFestService
   ) {}
 
   ngOnInit(): void {
     this.searchForm = this.formBuilder.group({
       name: [''],
-      theme: [''],
+      sousDomaine: [''],
       date: [''],
-      location: [''],
+      lieu: [''],
+      depart: [''],
     });
 
     this.dataSource.sort = this.sort;
-    this.getFestivalsPData(this.page);
+    console.log("search-fest.component.ts: ngOnInit: filterService.getFilter().nomFestival=" + this.filterService.getFilter().nomFestival);
+    this.getFestivalsPData(this.filterService.getFilter().nomFestival, this.filterService.getFilter().date, this.filterService.getFilter().lieu, this.filterService.getFilter().nomSousDomaine, this.filterService.getFilter().depart,this.page);            // parametre a modifier page a rajouter
     this.festivals.forEach(festival => {
       this.clickCounts.set(festival, 0);
     });
@@ -61,27 +73,25 @@ export class SearchFestComponent implements OnInit {
 
   onPageChange(increment: boolean): void {
     this.page += increment ? 1 : -1;
-    this.getFestivalsPData(this.page);
+    console.log("search-fest.component.ts: onPageChange: page=" + this.page);
+    this.getFestivalsPData(this.searchForm.controls['name'].value, this.searchForm.controls['date'].value, this.searchForm.controls['lieu'].value, this.searchForm.controls['nomSousDomaine'].value,this.searchForm.controls['depart'].value, this.page);
   }
 
-  goToSearchCovoit() {
-    this.router.navigate(['search-covoit']);
+  goToSearchCovoit(festival: Festival) {
+    this.festivalService.setSelectedFestival(festival);
+    this.router.navigate(['search-covoit/'+festival.idFestival]);
   }
 
-  getFestivalsPData(page: number): void {
-    this.appService.getFestivals(page).subscribe({
-      next: (festivals: Festival[]) => {
-        this.festivals = festivals;
-        this.dataSource.data = this.festivals;
-      },
-      error: (error) => {
-        console.error('Error fetching festivals:', error);
-      }
-    });
-  }
-
-  getFestByName(name: string, event: MouseEvent): void {
-    this.appService.getFestivalsByName(name).subscribe({
+  getFestivalsPData(nomFestival: string, date: string, lieu:string, sousDomaine:string, depart: string, page : number): void {
+    // Appel de getFestivals avec les paramètres de filtre
+    console.log("getFestivalsPData: nomFestival=" + nomFestival + ", date=" + date + ", lieu=" + lieu + ", sousDomaine=" + sousDomaine + ", depart=" + depart);
+    this.appService.getFestivals(nomFestival,
+      date,
+      lieu,
+      sousDomaine,
+      depart,
+      page
+    ).subscribe({
       next: (festivals: Festival[]) => {
         this.festivals = festivals;
         this.dataSource.data = this.festivals;
@@ -99,4 +109,5 @@ export class SearchFestComponent implements OnInit {
       this._liveAnnouncer.announce('Sorting cleared');
     }
   }
+
 }

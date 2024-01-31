@@ -24,11 +24,16 @@
       </div>
       <div *ngFor="let covoiturage of offresCovoiturage" class="festival-card" >
         <div class="festival-info">
-          <h3 >{{ covoiturage.covoitureur.nom }}</h3>
+          <!--<h3 >{{ covoiturage.covoitureur.nom }}</h3>-->
           <h3>{{ covoiturage.modeleVoiture }}</h3>
           <h3>{{ covoiturage.etapes[0].depart }}</h3>
           <h3>{{ covoiturage.etapes[0].heureDepart }} </h3>
-          <h3>{{ covoiturage.nbPlacesOffertes }}</h3> 
+          <div style="display: flex; align-items: center;">
+            <h3>{{ covoiturage.nbPlacesOffertes }} </h3>
+            <mat-icon>airline_seat_recline_normal</mat-icon>
+            <mat-icon> directions_walk</mat-icon>
+          </div>
+          
           <h3>{{ covoiturage.etapes[0].tarif }}€</h3>
         </div>
         <div class="festival-actions">
@@ -36,7 +41,7 @@
           <div class="click-count">{{ getClickCount(covoiturage) }}</div>
           <mat-icon (click)="onCovoiturageClick(covoiturage, false, $event)">remove_circle_outline</mat-icon>
         </div>
-        <mat-icon>add_shopping_cart</mat-icon>
+        <mat-icon (click)="ajoutPanier(this.currentUser.mail, 5,getClickCount(covoiturage))">add_shopping_cart</mat-icon>
       </div>
     </div>
     <div class="pagination">

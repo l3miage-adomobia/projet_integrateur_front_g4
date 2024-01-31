@@ -7,10 +7,11 @@ import {SearchCovoitComponent} from './search-covoit/search-covoit.component';
 import {CartComponent} from "./cart/cart.component";
 
 
+
 const routes: Routes = [
-    {path: '', title: 'Accueil', component: AccueilComponent},
-    {path: 'search-fest', component: SearchFestComponent},
-    {path: 'search-covoit', component: SearchCovoitComponent},
+    { path: '', title: 'Accueil', component: AccueilComponent },
+    { path: 'search-fest', component: SearchFestComponent },
+    { path: 'search-covoit/:id', component: SearchCovoitComponent},
     {path: '', redirectTo: '/home', pathMatch: 'full'},
     {path: 'login', component: AuthentificationComponent},
     {path: 'cart', component: CartComponent},

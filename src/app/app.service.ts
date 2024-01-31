@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as ModelApi from './model_api';
+import { Festival,OffreCovoiturage } from './model_api';
 
 
 
@@ -18,8 +19,23 @@ export class AppService {
     return this.http.get<ModelApi.Domaine[]>(this.api_Url+'domaines');
   }*/
 
-  getFestivals(page : number): Observable<ModelApi.Festival[]> {
-    return this.http.get<ModelApi.Festival[]>(this.api_Url+'festivals/page/'+page.toString());
+  getFestivals(partOfFestName:string, date : string, nomCommuneFest:string, sousdomaine:string,nomCommuneArr:string, page : number): Observable<ModelApi.Festival[]> {
+    let params = new HttpParams()
+      .set('partOfFestName', partOfFestName)
+      .set('date', date) 
+      .set('nomCommuneFest', nomCommuneFest)
+      .set('sousdomaine', sousdomaine)
+      .set('nomCommuneArr', nomCommuneArr)
+      .set('page', String(page)); // Convert page number to string
+
+    // Options de la requête avec les paramètres
+    let options = { params: params };
+
+    return this.http.get<Festival[]>(this.api_Url+'festivals/filtres', options);
+  }
+
+  getCovoiturages(festivalId : number): Observable<ModelApi.OffreCovoiturage[]> {
+    return this.http.get<ModelApi.OffreCovoiturage[]>(this.api_Url+'covoiturages/festival/'+String(festivalId));
   }
 
   getFestivalsByName(fName : string): Observable<ModelApi.Festival[]> {
