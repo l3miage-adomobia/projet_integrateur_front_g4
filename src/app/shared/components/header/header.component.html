@@ -7,10 +7,6 @@
             <div class="user-info">
                 <img [src]="currentUser.photoURL" class="user-photo">
                 <span class="user-name">Bienvenue, {{ currentUser.name.toUpperCase() }} !</span>
-                <a class="nav-link" routerLink="/orders">
-                    <mat-icon>list</mat-icon>
-                    Voir les commandes
-                </a>
                 <a (click)="confirmLogout()" class="nav-link">
                     <mat-icon>logout</mat-icon>
                     Déconnexion

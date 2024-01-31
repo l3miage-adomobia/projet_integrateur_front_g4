@@ -25,6 +25,7 @@ import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {CartComponent} from "./cart/cart.component";
 import {MatButtonModule} from "@angular/material/button";
+import {AuthentificationComponent} from "./authentification/authentification.component";
 
 // state related imports
 // import { StoreModule } from '@ngrx/store';
@@ -41,6 +42,7 @@ import {MatButtonModule} from "@angular/material/button";
         SearchFestComponent,
         SearchCovoitComponent,
         ConfirmDialogComponent,
+        AuthentificationComponent,
         CartComponent,
     ],
     imports: [
@@ -64,6 +66,7 @@ import {MatButtonModule} from "@angular/material/button";
         MatTableModule,
         MatSortModule,
         MatButtonModule,
+
         /**
          * StoreModule.forRoot is imported once in the root module, accepting a reducer
          * function or object map of reducer functions. If passed an object of

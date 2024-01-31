@@ -16,7 +16,13 @@ export class AuthentificationComponent {
     email: string = '';
     password: string = '';
 
+    activeTab: string = 'signup';
+
     constructor(private auth: AuthService) {
+    }
+
+    setActiveTab(tab: string) {
+        this.activeTab = tab;
     }
 
     signInWithGoogle() {
