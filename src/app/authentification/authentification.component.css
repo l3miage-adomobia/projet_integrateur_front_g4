@@ -9,7 +9,7 @@ a:hover {
 }
 
 .form {
-    background: var(--naples-yellow);
+    background: white;
     padding: 40px;
     max-width: 600px;
     margin: 40px auto;
@@ -46,12 +46,12 @@ a:hover {
 }
 
 .tab-group li a:hover {
-    background: var(--viridian);
+    background: var(--turquoise);
     color: #ffffff;
 }
 
 .tab-group .active a {
-    background: var(--turquoise);
+    background: var(--viridian);
     color: #ffffff;
 }
 
@@ -164,10 +164,11 @@ img {
 .google {
     background-color: white;
     color: black;
-    cursor: pointer
+    cursor: pointer;
+    border: 1px solid black;
 }
 
 .google:hover {
     background-color: white;
-    color: var(--naples-yellow);
+    color: var(--viridian);
 }

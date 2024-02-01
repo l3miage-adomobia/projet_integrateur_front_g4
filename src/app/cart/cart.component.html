@@ -1,10 +1,17 @@
+<div class="stepper">
+    <div class="step active">1</div>
+    <div class="line"></div>
+    <div class="step deux">2</div>
+    <div class="line"></div>
+    <div class="step last">3</div>
+</div>
 <div class="page-title">
     <h1>Valider vos reservations</h1>
     <br>
 </div>
 <div class="table-container">
     <div class="main-table">
-        <table [dataSource]="dataSource" mat-table>
+        <table [dataSource]="reservations" mat-table>
             <ng-container matColumnDef="car">
                 <th *matHeaderCellDef mat-header-cell></th>
                 <td *matCellDef="let reservation" mat-cell>
@@ -33,10 +40,10 @@
             </ng-container>
 
             <ng-container matColumnDef="prix">
-                <th *matHeaderCellDef mat-header-cell>Prix</th>
+                <th *matHeaderCellDef mat-header-cell>Prix Unitaire</th>
                 <td *matCellDef="let reservation"
                     mat-cell>
-                    {{ reservation.nombrePlacesChoisies * reservation.tarifCovoiturage | number : '.2-2' }}€
+                    {{ reservation.tarifFestival + reservation.tarifCovoiturage | number:'1.2-2':'fr'}}€
                 </td>
             </ng-container>
 
@@ -49,7 +56,8 @@
             <ng-container matColumnDef="sousTotal">
                 <th *matHeaderCellDef mat-header-cell>Sous-Total</th>
                 <td *matCellDef="let reservation"
-                    mat-cell>{{ reservation.nombrePlacesChoisies * reservation.tarifCovoiturage * 2 | number : '.2-2'}}€
+                    mat-cell>{{ reservation.nombrePlacesChoisies * (reservation.tarifCovoiturage + reservation.tarifFestival) | number:'1.2-2':'fr'}}
+                    €
                 </td>
             </ng-container>
             <ng-container matColumnDef="update">
@@ -70,14 +78,14 @@
             <tr *matRowDef="let row; columns: ['car','festival','covoiturage', 'prix', 'quantite', 'sousTotal','update']"
                 mat-row></tr>
         </table>
-        <mat-paginator [length]="reservations_test.length"
+        <mat-paginator [length]="reservations.data.length"
                        [pageSize]="5"
                        aria-label="Select page">
         </mat-paginator>
     </div>
     <div class="summary-container">
         <h3>Récapitulatif</h3>
-        <table [dataSource]="reservations_test" class="summary-table" mat-table>
+        <table [dataSource]="reservations" class="summary-table" mat-table>
             <!-- Colonnes du récapitulatif -->
             <ng-container matColumnDef="produit">
                 <th *matHeaderCellDef mat-header-cell>Produit</th>
@@ -86,7 +94,7 @@
             <ng-container matColumnDef="sousTotal">
                 <th *matHeaderCellDef mat-header-cell>Sous-Total</th>
                 <td *matCellDef="let element"
-                    mat-cell>{{  element.nombrePlacesChoisies * (element.tarifCovoiturage + element.tarifFestival) | number : '.2-2' }}
+                    mat-cell>{{  element.nombrePlacesChoisies * (element.tarifCovoiturage + element.tarifFestival) | number:'1.2-2':'fr' }}
                     €
                 </td>
             </ng-container>
@@ -96,7 +104,7 @@
         </table>
 
         <div class="total-price">
-            <p>Total à payer : {{ calculateTotalPrice() | number : '.2-2'}} €</p>
+            <p>Total à payer : {{ calculateTotalPrice() | number:'1.2-2':'fr'}} €</p>
             <br>
             <button class="buy-btn">Payer</button>
         </div>

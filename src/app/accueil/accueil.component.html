@@ -1,25 +1,34 @@
 <div class="banner">
     <h1>Découvrez votre aventure festiCar</h1>
     <div class="search-box">
-      <div class="input-group" [formGroup]="searchForm">
-        <div class="input-wrapper">
-          <input type="text" class="form-control" placeholder="Nom..." formControlName="nomFestival">
+        <div [formGroup]="searchForm" class="input-group">
+            <div class="input-wrapper">
+                <input class="form-control" formControlName="nomFestival" placeholder="Nom..." type="text">
+            </div>
+            <div class="input-wrapper">
+                <input class="form-control" formControlName="nomSousDomaine" placeholder="Thème.." type="text">
+            </div>
+            <div class="input-wrapper">
+                <input class="form-control" formControlName="date" placeholder="Date.." type="date">
+            </div>
+            <div class="input-wrapper">
+                <input class="form-control" formControlName="lieu" placeholder="Lieu.." type="text">
+                <span class="input-icon"><i class="material-icons">location_on</i></span>
+            </div>
+            <div class="input-wrapper">
+                <input class="form-control" formControlName="depart" placeholder="Départ.." type="text">
+                <span class="input-icon"><i class="material-icons">location_on</i></span>
+            </div>
         </div>
-        <div class="input-wrapper">
-          <input type="text" class="form-control" placeholder="Thème.." formControlName="nomSousDomaine">
+        <div class="btn-wrapper">
+            <button (click)="goToSearchFest()" [disabled]="isTrouverFestivalDisabled()" class="btn btn-primary">Trouver
+                un
+                festival
+            </button>
+            <button (click)="goToSearchFest()" [disabled]="isTousFestivalsDisabled()" class="btn btn-primary">Trouver
+                tous les festivals
+            </button>
         </div>
-        <div class="input-wrapper">
-          <input type="date" class="form-control" placeholder="Date.." formControlName="date">
-        </div>
-        <div class="input-wrapper">
-          <input type="text" class="form-control" placeholder="Lieu.." formControlName="lieu">
-          <span class="input-icon"><i class="material-icons">location_on</i></span>
-        </div>
-        <div class="input-wrapper">
-          <input type="text" class="form-control" placeholder="Départ.." formControlName="depart">
-          <span class="input-icon"><i class="material-icons">location_on</i></span>
-        </div>
-      </div>
-      <button class="btn btn-primary" (click)="goToSearchFest()">Trouver un festival</button>
+
     </div>
-  </div>
+</div>

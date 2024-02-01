@@ -1,10 +1,13 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {ReservationService} from "./service/reservation.service";
 import {Reservation} from "./model/reservation";
 import {ConfirmDialogComponent} from "../shared/components/confirm-dialog/confirm-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
+import {UserService} from "../authentification/service/user.service";
+import {FesticarUser} from "../authentification/service/FesticarUser";
+import {DatePipe} from "@angular/common";
 
 
 @Component({
@@ -12,116 +15,56 @@ import {MatTableDataSource} from "@angular/material/table";
     templateUrl: './cart.component.html',
     styleUrls: ['./cart.component.css']
 })
-export class CartComponent implements AfterViewInit {
-    reservations_test: Reservation[] = [
-        {
-            id: 1,
-            nomFestival: "Festival 1",
-            dateDebutFestival: "2024-03-15",
-            dateFinFestival: "2024-03-20",
-            lieuPrincipaleFestival: "Paris",
-            domaineFestival: "Musique",
-            sousDomaineFestival: "Rock",
-            nomCovoitureur: "John Doe",
-            modeleVehicule: "SUV",
-            lieuEtapeCovoiturage: "Lyon",
-            heureCovoiturage: "15:00",
-            dateCovoiturage: "2024-03-18",
-            nombrePlacesChoisies: 2,
-            tarifCovoiturage: 30,
-            tarifFestival: 15
+export class CartComponent {
 
-        },
-        {
-            id: 2,
-            nomFestival: "Festival 2",
-            dateDebutFestival: "2024-04-10",
-            dateFinFestival: "2024-04-15",
-            lieuPrincipaleFestival: "Marseille",
-            domaineFestival: "Théâtre",
-            sousDomaineFestival: "Comédie",
-            nomCovoitureur: "Alice Smith",
-            modeleVehicule: "Berline",
-            lieuEtapeCovoiturage: "Toulouse",
-            heureCovoiturage: "14:30",
-            dateCovoiturage: "2024-04-12",
-            nombrePlacesChoisies: 3,
-            tarifCovoiturage: 25,
-            tarifFestival: 15
-
-        },
-        {
-            id: 3,
-            nomFestival: "Festival 3",
-            dateDebutFestival: "2024-05-20",
-            dateFinFestival: "2024-05-25",
-            lieuPrincipaleFestival: "Lyon",
-            domaineFestival: "Danse",
-            sousDomaineFestival: "Classique",
-            nomCovoitureur: "Emma Johnson",
-            modeleVehicule: "Compacte",
-            lieuEtapeCovoiturage: "Grenoble",
-            heureCovoiturage: "16:00",
-            dateCovoiturage: "2024-05-23",
-            nombrePlacesChoisies: 4,
-            tarifCovoiturage: 20,
-            tarifFestival: 15
-        },
-        {
-            id: 4,
-            nomFestival: "Festival 4",
-            dateDebutFestival: "2024-06-15",
-            dateFinFestival: "2024-06-20",
-            lieuPrincipaleFestival: "Bordeaux",
-            domaineFestival: "Cinéma",
-            sousDomaineFestival: "Drame",
-            nomCovoitureur: "Michael Brown",
-            modeleVehicule: "SUV",
-            lieuEtapeCovoiturage: "Nantes",
-            heureCovoiturage: "15:30",
-            dateCovoiturage: "2024-06-18",
-            nombrePlacesChoisies: 2,
-            tarifCovoiturage: 35,
-            tarifFestival: 15
-
-        },
-        {
-            id: 5,
-            nomFestival: "Festival 5",
-            dateDebutFestival: "2024-07-10",
-            dateFinFestival: "2024-07-15",
-            lieuPrincipaleFestival: "Toulouse",
-            domaineFestival: "Art",
-            sousDomaineFestival: "Peinture",
-            nomCovoitureur: "Sophia Wilson",
-            modeleVehicule: "Berline",
-            lieuEtapeCovoiturage: "Montpellier",
-            heureCovoiturage: "14:45",
-            dateCovoiturage: "2024-07-12",
-            nombrePlacesChoisies: 3,
-            tarifCovoiturage: 28,
-            tarifFestival: 15
-
-        },
-    ];
-    dataSource = new MatTableDataSource<Reservation>(this.reservations_test);
-
-    reservations: Reservation[] = [];
+    public currentUser: FesticarUser = {name: '', token: '', photoURL: '', mail: ''};
+    reservations !: MatTableDataSource<Reservation>;
 
     @ViewChild(MatPaginator) paginator !: MatPaginator;
 
-    constructor(private rs: ReservationService, private dialog: MatDialog) {
+    constructor(private rs: ReservationService, private dialog: MatDialog, private us: UserService, private datePipe: DatePipe) {
     }
 
     ngOnInit(): void {
-        this.rs.obsReservation.subscribe((reservations) => {
-            this.reservations = reservations;
+        this.loadReservations();
+        this.us.getUser().subscribe(user => {
+            this.currentUser = user;
         });
 
     }
 
-    ngAfterViewInit() {
-        this.dataSource.paginator = this.paginator;
+    loadReservations() {
+        const mailFest = 'user145@example.com'; // Utilisez la valeur appropriée
+        this.rs.getReservations(mailFest).subscribe(
+            (data: any) => {
+                const reservationsTransformed = this.transformApiResponseToReservations(data);
+                this.reservations = new MatTableDataSource(reservationsTransformed);
+                this.reservations.paginator = this.paginator;
+            },
+            error => {
+                console.error('There was an error!', error);
+            }
+        );
+    }
+
+    transformApiResponseToReservations(data: any): Reservation[] {
+        return data.reservations.map((reservation: any) => ({
+            id: reservation.idReservation,
+            nomFestival: reservation.nomFestival,
+            dateDebutFestival: this.datePipe.transform(reservation.dateDebut, 'dd/MM/yyyy'),
+            dateFinFestival: this.datePipe.transform(reservation.dateFin, 'dd/MM/yyyy'),
+            lieuPrincipaleFestival: reservation.lieuPrincipal,
+            domaineFestival: reservation.domaine,
+            sousDomaineFestival: reservation.sousDomaineFestival,
+            nomCovoitureur: reservation.trajet.nomCovoitureur,
+            modeleVehicule: reservation.trajet.modeleVoiture,
+            lieuEtapeCovoiturage: reservation.trajet.nomCommune,
+            heureCovoiturage: this.datePipe.transform(reservation.trajet.dateDepart, 'HH:mm'),
+            dateCovoiturage: this.datePipe.transform(reservation.trajet.dateDepart, 'dd-MM-yyyy'),
+            nombrePlacesChoisies: reservation.nbPlaces,
+            tarifCovoiturage: reservation.trajet.tarif,
+            tarifFestival: reservation.tarifFestival,
+        }));
     }
 
     updateReservation(idResa: number) {
@@ -130,21 +73,15 @@ export class CartComponent implements AfterViewInit {
 
     deleteReservation(idResa: number) {
         this.rs.deleteReservation(idResa);
-        console.log('Réservations après suppression :', this.reservations_test);
-
     }
 
     calculateTotalPrice(): number {
-        // a faire dans le service
         let totalPrice = 0;
-        /* version pour observable
-        for (const reservation of this.reservations) {
-            totalPrice += reservation.nombrePlacesChoisies * reservation.tarifCovoiturage * 2;
-        }
 
-         */
-        for (const reservation of this.reservations_test) {
-            totalPrice += reservation.nombrePlacesChoisies * (reservation.tarifCovoiturage + reservation.tarifFestival);
+        if (this.reservations.data && this.reservations.data.length) {
+            for (const reservation of this.reservations.data) {
+                totalPrice += reservation.nombrePlacesChoisies * (reservation.tarifCovoiturage + reservation.tarifFestival);
+            }
         }
         return totalPrice;
     }

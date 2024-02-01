@@ -1,3 +1,47 @@
+.stepper {
+    display: flex;
+    margin-top: 1%;
+    margin-bottom: 1.5%;
+    align-items: center;
+    justify-content: center;
+    max-width: 15%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.step {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.active {
+    background: var(--naples-yellow);
+}
+
+.deux {
+    background: var(--turquoise);
+}
+
+.last {
+    background: var(--viridian);
+}
+
+.current {
+    background: #ccc; /* Current step color */
+}
+
+.line {
+    height: 3px;
+    flex-grow: 1;
+    background: #ccc;
+}
+
 .table-container {
     display: flex;
     gap: 5rem;
@@ -43,7 +87,13 @@ h3 {
 
 .main-table .mat-row:hover {
     height: 150px;
-    background-color: var(--gradient-bottom-left);
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+span {
+    padding-top: 6px;
+    padding-bottom: 6px;
 }
 
 .car-img {
