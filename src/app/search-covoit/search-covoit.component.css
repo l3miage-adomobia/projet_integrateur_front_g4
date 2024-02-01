@@ -1,168 +1,159 @@
 /* Styles pour le stepper */
 .stepper {
-    display: flex;
-    margin-top: 1%;
-    margin-bottom: 1.5%;
-    align-items: center;
-    justify-content: center;
-    max-width: 15%;
-    margin-left: auto;
-    margin-right: auto;
+  display: flex;
+  margin-top: 1%;
+  margin-bottom: 1.5%;
+  align-items: center;
+  justify-content: center;
+  max-width: 15%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.step {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.active {
+  background: var(--naples-yellow); /* Active step color */
+}
+
+.current {
+  background: var(--turquoise); /* Current step color */
+}
+
+.line {
+  height: 3px;
+  flex-grow: 1;
+  background: #ccc;
+}
+
+.titre {
+  display: flex;
+  justify-content: center; /* Aligne horizontalement le contenu au centre */
+  align-items: center; /* Aligne verticalement le contenu au centre */
+}
+
+/* Variables */
+:root {
+  --yellow: #FFD700; /* Adjust this color to match your design */
+  --black: #000;
+  --grey: #808080;
+  --white: #FFF;
+}
+
+/* Search bar styles */
+.input-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* Adds space between inputs */
+  margin-bottom: 30px;
+  margin-top: 1%;
+}
+
+.input-wrapper {
+  position: relative; /* For absolute positioning of icons */
+}
+
+.form-control {
+  padding: 10px;
+  border: 1px solid #808080; /* Light grey border */
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.input-icon i {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--grey);
+}
+
+/* Festival card styles */
+.festival-card {
+  background-color: var(--turquoise);
+  width: 50%;
+  border-radius: 10px;
+  padding: 20px;
+  margin: auto;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Soft shadow for depth */
+  flex-direction: row;
+  gap: 20px;
+}
+
+.festival-info {
+  display: flex;
+  flex-direction: row; /* Aligns info vertically */
+}
+
+.festival-info h3, .festival-info p, .festival-info a {
+  color: var(--black); /* Text color */
+  margin-bottom: 5px;
+  margin-right: 10px;
+}
+
+.festival-actions, .festival-info {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espacement entre les icônes et le texte */
+}
+
+mat-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 5px; /* Ajustez selon le besoin pour l'espacement */
+}
+
+/* Hover effect for interactive elements */
+.festival-actions a:hover, .festival-card:hover {
+  transform: scale(1.03);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .stepper {
+    max-width: 90%; /* Augmente la largeur sur les petits écrans pour mieux s'adapter */
   }
-  .step {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background: #ccc;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
+
+  .input-group {
+    flex-direction: column;
+    gap: 5px; /* Réduit l'espacement entre les champs de saisie */
   }
-  .active {
-    background:var(--naples-yellow); /* Active step color */
+
+  .form-control {
+    margin-right: 0;
+    margin-bottom: 10px;
+    width: 100%; /* Permet aux champs de saisie de prendre toute la largeur disponible */
   }
-  .current {
-    background: var(--turquoise); /* Current step color */
+
+  .festival-card {
+    width: 90%; /* Augmente la largeur pour les petits écrans */
+    flex-direction: column; /* Change la disposition pour la verticalité sur les petits écrans */
+    gap: 10px; /* Ajuste l'espacement entre les éléments pour une meilleure lisibilité */
   }
-  .line {
-    height: 3px;
-    flex-grow: 1;
-    background: #ccc;
+
+  .festival-info, .festival-actions {
+    flex-direction: column; /* Organise les informations et actions verticalement pour les petits écrans */
+    align-items: flex-start; /* Alignement au début pour un look cohérent */
   }
-  
+
   .titre {
-    display: flex;
-    justify-content: center; /* Aligne horizontalement le contenu au centre */
-    align-items: center; /* Aligne verticalement le contenu au centre */
+    font-size: 1.5rem; /* Réduit la taille des titres pour les petits écrans */
   }
-  
-  /* Variables */
-  :root {
-      --yellow: #FFD700; /* Adjust this color to match your design */
-      --black: #000;
-      --grey: #808080;
-      --white: #FFF;
-    }
-    
-    /* Search bar styles */
-    .input-group {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      gap: 10px; /* Adds space between inputs */
-      margin-bottom: 30px;
-      margin-top: 1%;
-    }
-    
-    .input-wrapper {
-      position: relative; /* For absolute positioning of icons */
-    }
-    
-    .form-control {
-      padding: 10px;
-      border: 1px solid #808080; /* Light grey border */
-      border-radius: 5px;
-      margin-right: 10px;
-    }
-    
-    .input-icon {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--grey);
-    }
-    
-    /* Festival card styles */
-    .festival-card {
-      background-color: var(--turquoise);
-      width: 50%;
-      border-radius: 10px;
-      padding: 20px;
-      margin: auto;
-      margin-bottom: 15px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Soft shadow for depth */
-    }
-    
-    .festival-info {
-      display: flex;
-      flex-direction: row; /* Aligns info vertically */
-  
-    }
-    
-    .festival-info h3, .festival-info p, .festival-info a {
-      color: var(--black); /* Text color */
-      margin-bottom: 5px;
-      margin-right: 10px;
-    }
-    
-    .festival-actions {
-      display: flex;
-      flex-direction: row; /* Aligns actions vertically */
-    }
-    
-    /* Links inside the card for interaction */
-    .festival-actions a {
-      color: var(--black);
-      text-decoration: none; /* Removes underline */
-      margin-left: 10px;
-    }
-    
-    .festival-actions mat-icon {
-      vertical-align: middle; /* Aligns icon with text */
-    }
-    
-    /* Hover effect for interactive elements */
-    .festival-actions a:hover, .festival-card:hover {
-      transform: scale(1.03);
-    }
-    
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      .input-group {
-        flex-direction: column;
-      }
-      
-      .form-control {
-        margin-right: 0;
-        margin-bottom: 10px;
-      }
-    
-      .festival-info {
-        flex-direction: row; /* Adjust based on your design */
-        justify-content: space-between;
-        align-items: center;
-      }
-    }  
-  
-    .mat-paginator{
-      display: flex;
-      position: absolute;
-      bottom: 0;
-    }
-    
-    .pagination {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 20px;
-    }
-    
-    .pagination button {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      margin: 0 5px;
-      cursor: pointer;
-    }
-    
-    .pagination button:disabled {
-      background-color: #cccccc;
-      cursor: not-allowed;
-    }
+}
+

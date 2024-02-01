@@ -23,10 +23,12 @@ export class SearchFestComponent implements OnInit {
   nomSousDomaine:string = this.filterService.getFilter().nomSousDomaine;
   depart: string = this.filterService.getFilter().depart;*/
   festivals: Festival[]  = [];
+  testChangePage: Festival[] = [];
   displayedColumns: string[] = ['nomFestival', 'nomSousDomaine', 'dateDebut', 'lieuPrincipal', 'tarif'];
   dataSource = new MatTableDataSource<Festival>(this.festivals);
   private clickCounts = new Map<Festival, number>();
   page: number = 1;
+  isNextPage: boolean = false;
 
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -43,14 +45,13 @@ export class SearchFestComponent implements OnInit {
   ngOnInit(): void {
     this.searchForm = this.formBuilder.group({
       name: [''],
-      sousDomaine: [''],
+      nomSousDomaine: [''],
       date: [''],
       lieu: [''],
       depart: [''],
     });
 
     this.dataSource.sort = this.sort;
-    console.log("search-fest.component.ts: ngOnInit: filterService.getFilter().nomFestival=" + this.filterService.getFilter().nomFestival);
     this.getFestivalsPData(this.filterService.getFilter().nomFestival, this.filterService.getFilter().date, this.filterService.getFilter().lieu, this.filterService.getFilter().nomSousDomaine, this.filterService.getFilter().depart,this.page);            // parametre a modifier page a rajouter
     this.festivals.forEach(festival => {
       this.clickCounts.set(festival, 0);
@@ -73,34 +74,64 @@ export class SearchFestComponent implements OnInit {
 
   onPageChange(increment: boolean): void {
     this.page += increment ? 1 : -1;
-    console.log("search-fest.component.ts: onPageChange: page=" + this.page);
-    this.getFestivalsPData(this.searchForm.controls['name'].value, this.searchForm.controls['date'].value, this.searchForm.controls['lieu'].value, this.searchForm.controls['nomSousDomaine'].value,this.searchForm.controls['depart'].value, this.page);
+      this.getFestivalsPData(
+        this.searchForm.controls['name'].valid ? this.searchForm.controls['name'].value : '',
+        this.searchForm.controls['date'].valid ? this.searchForm.controls['date'].value : '', 
+        this.searchForm.controls['lieu'].valid ? this.searchForm.controls['lieu'].value : '',
+        this.searchForm.controls['nomSousDomaine'].valid ? this.searchForm.controls['nomSousDomaine'].value : '',
+        this.searchForm.controls['depart'].valid ? this.searchForm.controls['depart'].value : '', 
+        this.page);
   }
 
   goToSearchCovoit(festival: Festival) {
-    this.festivalService.setSelectedFestival(festival);
-    this.router.navigate(['search-covoit/'+festival.idFestival]);
+    if (this.clickCounts.get(festival) != 0 && this.clickCounts.get(festival) != undefined){
+      console.log(this.clickCounts.get(festival));
+      this.festivalService.setSelectedFestival(festival);
+    this.router.navigate(['search-covoit/'+festival.nomFestival+'/'+festival.idFestival+'/'+this.clickCounts.get(festival)]);
+    }
   }
 
-  getFestivalsPData(nomFestival: string, date: string, lieu:string, sousDomaine:string, depart: string, page : number): void {
+  getFestivalsPData(nomFestival: string ='', date: string ='', lieu:string ='', nomSousDomaine:string ='', depart: string ='', page : number =1): void {
     // Appel de getFestivals avec les paramètres de filtre
-    console.log("getFestivalsPData: nomFestival=" + nomFestival + ", date=" + date + ", lieu=" + lieu + ", sousDomaine=" + sousDomaine + ", depart=" + depart);
-    this.appService.getFestivals(nomFestival,
-      date,
-      lieu,
-      sousDomaine,
-      depart,
-      page
-    ).subscribe({
+    
+    // Premier appel HTTP
+    this.appService.getFestivals(nomFestival, date, lieu, nomSousDomaine, depart, page).subscribe({
       next: (festivals: Festival[]) => {
         this.festivals = festivals;
         this.dataSource.data = this.festivals;
+  
+        // Deuxième appel HTTP
+        this.appService.getFestivals(nomFestival, date, lieu, nomSousDomaine, depart, page + 1).subscribe({
+          next: (testChangePage: Festival[]) => {
+            this.testChangePage = testChangePage;
+  
+            // Vérification de la page suivante
+            if (this.testChangePage.length == 0) {
+              this.isNextPage = false;
+            } else {
+              this.isNextPage = true;
+            }
+          },
+          error: (error) => {
+            console.error('Error fetching festivals:', error);
+          }
+        });
       },
       error: (error) => {
         console.error('Error fetching festivals:', error);
       }
     });
   }
+  refreshFestivals(): void {
+    this.page = 1;
+    console.log(this.festivals);
+    this.getFestivalsPData(this.searchForm.controls['name'].value,
+    this.searchForm.controls['date'].value,
+    this.searchForm.controls['lieu'].value,
+    this.searchForm.controls['nomSousDomaine'].value,
+    this.searchForm.controls['depart'].value, 
+    this.page);
+  }  
 
   announceSortChange(sortState: Sort) {
     if (sortState.direction) {

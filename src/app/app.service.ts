@@ -34,12 +34,40 @@ export class AppService {
     return this.http.get<Festival[]>(this.api_Url+'festivals/filtres', options);
   }
 
-  getCovoiturages(festivalId : number): Observable<ModelApi.OffreCovoiturage[]> {
-    return this.http.get<ModelApi.OffreCovoiturage[]>(this.api_Url+'covoiturages/festival/'+String(festivalId));
+  getCovoiturages(festivalId : number): Observable<ModelApi.Etape[]> {
+    return this.http.get<ModelApi.Etape[]>(this.api_Url+'covoiturages/festival/'+String(festivalId));
   }
 
   getFestivalsByName(fName : string): Observable<ModelApi.Festival[]> {
     return this.http.get<ModelApi.Festival[]>(this.api_Url+'festivals/filtre/nom/'+fName);
+  }
+
+  addReservationPanier(mailUtilisateur : string, idEtape : number, nbPlacesReserve  : number): Observable<any> {
+    let params = new HttpParams()
+      .set('mailUtilisateur', mailUtilisateur)
+      .set('idEtape', idEtape) 
+      .set('nbPlacesReserve', nbPlacesReserve )
+
+
+    // Options de la requête avec les paramètres
+    let options = { params: params };
+    console.log("oui je suis dans addresa mail :  " + mailUtilisateur+ " idEtape :"+idEtape+" nbplaces :"+nbPlacesReserve)
+     this.http.post<any>(this.api_Url+'reservations/ajouter/mailFestivalier/'+mailUtilisateur+
+    '/idEtape/'+idEtape+'/nbPlaces/'+nbPlacesReserve,options).subscribe({
+      next: (data) => {
+        console.log('Data:', data);
+      },
+      error: (error) => {
+        console.error('Error:', error);
+      }
+    });
+    return this.http.post<any>(this.api_Url+'reservations/ajouter/mailFestivalier/'+mailUtilisateur+idEtape+nbPlacesReserve,options); 
+  }
+
+  ajouterResaAuPanier(mailUtilisateur: string, idEtape: number, nbPlacesReserve: number): Observable<ModelApi.Resa> {
+    const url = `${this.api_Url}reservations/ajouter/mailFestivalier/${mailUtilisateur}/idEtape/${idEtape}/nbPlaces/${nbPlacesReserve}`;
+    console.log("Appel API pour ajouter une réservation: ", url);
+    return this.http.post<ModelApi.Resa>(url, {});
   }
 
 }

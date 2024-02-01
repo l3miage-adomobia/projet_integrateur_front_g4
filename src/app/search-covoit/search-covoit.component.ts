@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Etape, OffreCovoiturage } from '../model_api';
+import { Etape } from '../model_api';
 import { ActivatedRoute, Router } from "@angular/router";
 import { FestivalService } from '../services/fest-covoit/festival.service';
 import { AppService } from '../app.service';
@@ -16,9 +16,17 @@ import { FesticarUser } from '../authentification/service/FesticarUser';
 export class SearchCovoitComponent {
 
     page: number = 1;
-    offresCovoiturage: OffreCovoiturage[] = [];
-    private clickCounts = new Map<OffreCovoiturage, number>();
+    offresCovoiturage: Etape[] = [];
+    testChangePage: Etape[] = [];
+    private clickCounts = new Map<Etape, number>();
     public currentUser: FesticarUser = { name: '', token: '', photoURL: '', mail: '' };
+    isNextPage: boolean = false;
+    idParam: string | null = this.route.snapshot.paramMap.get('id');
+    id = this.idParam !== null ? parseInt(this.idParam, 10) : -1 ;
+    nomFestival = this.route.snapshot.paramMap.get('nomFestival');
+    stringNbPass = this.route.snapshot.paramMap.get('nbPass');
+    testPass = this.stringNbPass !== null ? parseInt(this.stringNbPass, 10) : 0 ;
+    nbPass = this.stringNbPass !== null ? parseInt(this.stringNbPass, 10) : 0 ;
 
     constructor(private router: Router,
         private route: ActivatedRoute,
@@ -28,17 +36,8 @@ export class SearchCovoitComponent {
     ) { }
 
     ngOnInit(): void {
-
-        const id = this.route.snapshot.paramMap.get('id');
-        if (id !== null) {
-            this.appService.getCovoiturages(parseInt(id, 10)).subscribe({
-                next: (data: OffreCovoiturage[]) => {
-                    this.offresCovoiturage = data;
-                },
-                error: (error) => {
-                    console.error('Error fetching Festivals:', error);
-                }
-            });
+        if (this.id !== null) {
+            this.getCovoituragesPData(this.id);
         } else {
             console.error('Error: ID is null');
         }
@@ -55,13 +54,23 @@ export class SearchCovoitComponent {
         console.log("mail :" + this.currentUser.mail)
     }
 
-    onCovoiturageClick(covoiturage: OffreCovoiturage, increment: boolean, event: MouseEvent): void {
+  
+
+    onCovoiturageClick(covoiturage: Etape, increment: boolean, event: MouseEvent): void {
         event.stopPropagation(); // Prevent click from bubbling to the card element
-        const currentCount = this.clickCounts.get(covoiturage) || 0;
-        this.clickCounts.set(covoiturage, increment ? currentCount + 1 : Math.max(currentCount - 1, 0));
+        let totalClicks = Array.from(this.clickCounts.values()).reduce((a, b) => a + b, 0);
+        if (increment && this.nbPass>=1) {
+          this.nbPass--;
+          const currentCount = this.clickCounts.get(covoiturage) || 0;
+          this.clickCounts.set(covoiturage, currentCount + 1);
+        } else if (!increment &&  totalClicks <=this.testPass){  
+          this.nbPass++;
+          const currentCount = this.clickCounts.get(covoiturage) || 0;
+          this.clickCounts.set(covoiturage, Math.max(currentCount - 1, 0));
+        }
     }
 
-    getClickCount(covoiturage: OffreCovoiturage): number {
+    getClickCount(covoiturage: Etape): number {
         return this.clickCounts.get(covoiturage) || 0;
     }
 
@@ -70,8 +79,46 @@ export class SearchCovoitComponent {
         //this.getFestivalsPData(this.page);
     }
 
+    getCovoituragesPData(id:number): void {
+        // Appel de getFestivals avec les paramètres de filtre
+        
+        // Premier appel HTTP
+        this.appService.getCovoiturages(this.id).subscribe({
+          next: (offresCovoiturage: Etape[]) => {
+            this.offresCovoiturage = offresCovoiturage;
+      
+            // Deuxième appel HTTP
+            this.appService.getCovoiturages(this.id).subscribe({
+              next: (testChangePage: Etape[]) => {
+                this.testChangePage = testChangePage;
+      
+                // Vérification de la page suivante
+                if (this.testChangePage.length == 0) {
+                  this.isNextPage = false;
+                } else {
+                  this.isNextPage = true;
+                }
+              },
+              error: (error) => {
+                console.error('Error fetching festivals:', error);
+              }
+            });
+          },
+          error: (error) => {
+            console.error('Error fetching festivals:', error);
+          }
+        });
+      }
+
+    refreshFestivals(): void {
+        this.page = 1;
+        this.getCovoituragesPData(this.id);
+      } 
+
     ajoutPanier(mail: string, idEtape: number, nbplaces: number) {
-        console.log("ajout panier"+mail+" " + idEtape + " " + nbplaces);
-        //this.router.navigate(['cart']);
+      let testmail = 'testtest.com';
+      console.log("mail :  " + mail+ " idEtape :"+idEtape+" nbplaces :"+nbplaces)
+      this.appService.addReservationPanier(mail, idEtape, nbplaces);
+      //this.appService.ajouterResaAuPanier(mail, idEtape, nbplaces);
     }
 }

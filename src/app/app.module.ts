@@ -23,6 +23,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatSortModule} from "@angular/material/sort";
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
+import { SiteWebFestivalComponent } from './site-web-festival/site-web-festival.component';
 
 // state related imports
 // import { StoreModule } from '@ngrx/store';
@@ -38,7 +39,8 @@ import {MatPaginatorModule} from "@angular/material/paginator";
         AccueilComponent,
         SearchFestComponent,
         SearchCovoitComponent,
-        ConfirmDialogComponent
+        ConfirmDialogComponent,
+        SiteWebFestivalComponent
     ],
     imports: [
         BrowserModule,
