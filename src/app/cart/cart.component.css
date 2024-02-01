@@ -1,0 +1,123 @@
+.stepper {
+    display: flex;
+    margin-top: 1%;
+    margin-bottom: 1.5%;
+    align-items: center;
+    justify-content: center;
+    max-width: 15%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.step {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.active {
+    background: var(--naples-yellow);
+}
+
+.deux {
+    background: var(--turquoise);
+}
+
+.last {
+    background: var(--viridian);
+}
+
+.current {
+    background: #ccc; /* Current step color */
+}
+
+.line {
+    height: 3px;
+    flex-grow: 1;
+    background: #ccc;
+}
+
+.table-container {
+    display: flex;
+    gap: 5rem;
+    align-items: flex-start;
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+table[mat-table] {
+    flex: 1;
+    border-collapse: separate;
+}
+
+.summary-container {
+    width: 30%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    margin: auto;
+}
+
+.summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+h1 {
+}
+
+h2 {
+    font-size: 11pt;
+}
+
+h3 {
+    font-size: 11pt;
+    display: inline;
+}
+
+.main-table .mat-mdc-row {
+    height: 150px;
+}
+
+.main-table .mat-row:hover {
+    height: 150px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+span {
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+.car-img {
+    width: 60px;
+    height: 60px;
+}
+
+.buy-btn {
+    background-color: var(--naples-yellow);
+    width: 100px;
+    border: none;
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+}
+
+.buy-btn:hover {
+    opacity: 0.8;
+}
+
+mat-icon {
+    color: var(--naples-yellow);
+}
+
+.page-title {
+    margin: 20px;
+}

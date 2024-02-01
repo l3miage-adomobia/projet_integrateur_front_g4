@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
-import {GoogleAuthProvider} from '@angular/fire/auth'
+import {GoogleAuthProvider} from '@angular/fire/auth';
 import {Router} from "@angular/router";
 import {UserService} from "./user.service";
+import {FesticarUser} from "./FesticarUser";
 
 
 @Injectable({
@@ -10,10 +11,10 @@ import {UserService} from "./user.service";
 })
 export class AuthService {
 
+    user !: FesticarUser;
 
     constructor(private fireauth: AngularFireAuth, private router: Router, private us: UserService) {
     }
-
 
     //sign in with google
     googleSignIn() {
@@ -25,6 +26,11 @@ export class AuthService {
             this.us.setToken(res.user?.uid ?? "");
             this.us.setPhotoURL(res.user?.photoURL ?? "");
             this.us.setMail(res.user?.email ?? "");
+            const token = res.user?.uid ?? "";
+            localStorage.setItem('userToken', token);
+            this.us.getUser().subscribe(user => {
+                this.user = user;
+            });
         }, err => {
             alert(err.message);
         })
@@ -70,6 +76,7 @@ export class AuthService {
         }, err => {
             alert(err.message);
         })
+        localStorage.removeItem('userToken');
     }
 
     // forgot password
@@ -90,5 +97,4 @@ export class AuthService {
             alert('Something went wrong. Not able to send mail to your email.')
         })
     }
-
 }

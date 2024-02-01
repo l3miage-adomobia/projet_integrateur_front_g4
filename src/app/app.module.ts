@@ -14,7 +14,7 @@ import {SearchFestComponent} from './search-fest/search-fest.component';
 import {SearchCovoitComponent} from "./search-covoit/search-covoit.component";
 import {ConfirmDialogComponent} from "./shared/components/confirm-dialog/confirm-dialog.component";
 import {AngularFireModule} from "@angular/fire/compat";
-import {CommonModule, NgOptimizedImage} from "@angular/common";
+import {CommonModule, DatePipe, NgOptimizedImage, registerLocaleData} from "@angular/common";
 import {MatMenuModule} from "@angular/material/menu";
 import {AngularFireAuthModule} from "@angular/fire/compat/auth";
 import {environment} from "../environments/environment";
@@ -24,13 +24,13 @@ import {MatSortModule} from "@angular/material/sort";
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import { SiteWebFestivalComponent } from './site-web-festival/site-web-festival.component';
+import {CartComponent} from "./cart/cart.component";
+import {MatButtonModule} from "@angular/material/button";
+import {AuthentificationComponent} from "./authentification/authentification.component";
+import localeFr from '@angular/common/locales/fr';
 
-// state related imports
-// import { StoreModule } from '@ngrx/store';
-// import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-// import { reducers, metaReducers } from './app-state/reducers';
-// import { CustomRouterStateSerializer } from './app-state/shared/utils';
-// import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
+
+registerLocaleData(localeFr);
 
 @NgModule({
     declarations: [
@@ -40,6 +40,8 @@ import { SiteWebFestivalComponent } from './site-web-festival/site-web-festival.
         SearchFestComponent,
         SearchCovoitComponent,
         ConfirmDialogComponent,
+        AuthentificationComponent,
+        CartComponent,,
         SiteWebFestivalComponent
     ],
     imports: [
@@ -62,6 +64,8 @@ import { SiteWebFestivalComponent } from './site-web-festival/site-web-festival.
         MatPaginatorModule,
         MatTableModule,
         MatSortModule,
+        MatButtonModule,
+
         /**
          * StoreModule.forRoot is imported once in the root module, accepting a reducer
          * function or object map of reducer functions. If passed an object of
@@ -96,7 +100,7 @@ import { SiteWebFestivalComponent } from './site-web-festival/site-web-festival.
          * See: https://github.com/ngrx/platform/blob/master/docs/effects/api.md#forroot
          */
     ],
-    providers: [],
+    providers: [DatePipe],
     bootstrap: [AppComponent]
 })
 export class AppModule {
