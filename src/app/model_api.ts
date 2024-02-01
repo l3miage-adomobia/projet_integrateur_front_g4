@@ -25,22 +25,31 @@ export interface Domaine {
 
 export interface OffreCovoiturage {
   idOffreDeCovoiturage : number;
-  nbPlacesOffertes: number;
+  nbPlaces: number;
   modeleVoiture: string;
   etapes : Etape[];
   festival : Festival;
-  covoitureur : Utilisateur;
+  nomCovoitureur : Utilisateur;
+  nomCommune : string;
 }
+export interface Resa {
+  idEtape : number;
+  nbPlacesReserve: number;
+  mailUtilisateur: string;
 
+}
 export interface Etape{
 
-  idEtape : number;
-  tarif: number;
-  duree: number;
-  heureDepart: string; //temporaire
-  depart?: ArretCovoiturage;
-  offreCovoiturage?: OffreCovoiturage;
-  villeArrivee: string;
+  idEtape: number;
+    nbPlaces: 4;
+    nomCovoitureur: string;
+    modeleVoiture: string;
+    latitude: string;
+    longitude: string;
+    nomCommune: string;
+    tarif: number;
+    duree: number;
+    dateDepart: string;
 }
 
 export interface ArretCovoiturage{
