@@ -41,7 +41,7 @@ registerLocaleData(localeFr);
         SearchCovoitComponent,
         ConfirmDialogComponent,
         AuthentificationComponent,
-        CartComponent,,
+        CartComponent,
         SiteWebFestivalComponent
     ],
     imports: [
