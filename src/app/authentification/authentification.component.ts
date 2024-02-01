@@ -14,6 +14,7 @@ export class AuthentificationComponent {
     })
 
     email: string = '';
+
     password: string = '';
 
     activeTab: string = 'signup';
