@@ -39,11 +39,11 @@
           <h3>{{ covoiturage.tarif }}€</h3>
         </div>
         <div class="festival-actions">
-          <mat-icon (click)="onCovoiturageClick(covoiturage, false, $event)"><a>remove_circle_outline</a></mat-icon>
+          <mat-icon (click)="onCovoiturageClick(covoiturage, false, $event)">remove_circle_outline</mat-icon>
           <div class="click-count">{{ getClickCount(covoiturage) }}</div>
-          <mat-icon cliquable ="true" (click)="onCovoiturageClick(covoiturage, true, $event)"><a>add_circle_outline</a></mat-icon>
+          <mat-icon cliquable ="true" (click)="onCovoiturageClick(covoiturage, true, $event)">add_circle_outline</mat-icon>
         </div>
-        <mat-icon (click)="ajoutPanier(this.currentUser.mail, covoiturage.idEtape,getClickCount(covoiturage))"><a>add_shopping_cart</a></mat-icon>
+        <mat-icon (click)="ajoutPanier(this.currentUser.mail, covoiturage.idEtape,getClickCount(covoiturage))">add_shopping_cart</mat-icon>
       </div>
     </div>
 

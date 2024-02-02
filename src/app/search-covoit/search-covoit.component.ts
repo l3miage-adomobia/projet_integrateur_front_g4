@@ -5,6 +5,8 @@ import { FestivalService } from '../services/fest-covoit/festival.service';
 import { AppService } from '../app.service';
 import { UserService } from '../authentification/service/user.service';
 import { FesticarUser } from '../authentification/service/FesticarUser';
+import {MatDialog} from "@angular/material/dialog";
+import {ConfirmDialogComponent} from "../shared/components/confirm-dialog/confirm-dialog.component";
 
 
 
@@ -25,14 +27,14 @@ export class SearchCovoitComponent {
     id = this.idParam !== null ? parseInt(this.idParam, 10) : -1 ;
     nomFestival = this.route.snapshot.paramMap.get('nomFestival');
     stringNbPass = this.route.snapshot.paramMap.get('nbPass');
-    testPass = this.stringNbPass !== null ? parseInt(this.stringNbPass, 10) : 0 ;
-    nbPass = this.stringNbPass !== null ? parseInt(this.stringNbPass, 10) : 0 ;
+    nbPass = this.stringNbPass !== null ? parseInt(this.stringNbPass, 10) : 0;
 
     constructor(private router: Router,
-        private route: ActivatedRoute,
-        private festivalService: FestivalService,
-        private appService: AppService,
-        private us: UserService
+      private route: ActivatedRoute,
+      private festivalService: FestivalService,
+      private appService: AppService,
+      private us: UserService,
+      private dialog: MatDialog
     ) { }
 
     ngOnInit(): void {
@@ -59,14 +61,15 @@ export class SearchCovoitComponent {
     onCovoiturageClick(covoiturage: Etape, increment: boolean, event: MouseEvent): void {
         event.stopPropagation(); // Prevent click from bubbling to the card element
         let totalClicks = Array.from(this.clickCounts.values()).reduce((a, b) => a + b, 0);
-        if (increment && this.nbPass>=1) {
+        if (increment && this.nbPass>=1 && covoiturage.nbPlaces>(this.clickCounts.get(covoiturage) || 0)) {
           this.nbPass--;
           const currentCount = this.clickCounts.get(covoiturage) || 0;
           this.clickCounts.set(covoiturage, currentCount + 1);
-        } else if (!increment &&  totalClicks <=this.testPass){  
-          this.nbPass++;
+        } else if(!increment){  
           const currentCount = this.clickCounts.get(covoiturage) || 0;
           this.clickCounts.set(covoiturage, Math.max(currentCount - 1, 0));
+          if(currentCount>0)
+            this.nbPass++;
         }
     }
 
@@ -116,8 +119,17 @@ export class SearchCovoitComponent {
       } 
 
     ajoutPanier(mail: string, idEtape: number, nbplaces: number) {
-      let testmail = 'testtest.com';
-      console.log("mail :  " + mail+ " idEtape :"+idEtape+" nbplaces :"+nbplaces)
+      if(mail === '') {
+        const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+          panelClass: 'custom-modalbox',
+          data: {message: "Veuillez vous connecter avant d'ajouter au panier ?"}
+      })
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+            this.router.navigate(['/login']);
+        }
+    });
+      }
       this.appService.addReservationPanier(mail, idEtape, nbplaces);
       //this.appService.ajouterResaAuPanier(mail, idEtape, nbplaces);
     }
