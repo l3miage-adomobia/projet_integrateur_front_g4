@@ -1,57 +1,61 @@
 <div class="stepper">
-  <a routerLink="/search-fest">
-    <div class="step active">1</div>
-</a>
+    <a routerLink="/search-fest">
+        <div class="step active">1</div>
+    </a>
     <div class="line"></div>
     <div class="step current">2</div>
     <div class="line"></div>
     <div class="step">3</div>
-  </div>
-  <h1 class="titre">Trouvez votre covoiturage pour</h1><br/>
-  <h1 class="titre">{{nomFestival}} !</h1>
-  <h3 style="text-align: right; margin-right: 15%;">nombre de places à attribuer : {{nbPass}}</h3>
-  <div class="search-results">
-      <div class="filtre-recherche">
-          <div class="input-group">
-              <div class="input-wrapper">
-                  <input type="date" class="form-control" placeholder="Date..">
-              </div>
-              <div class="input-wrapper">
-                  <input type="text" class="form-control" placeholder="Lieu départ..">
-                  <span class="input-icon"><i class="material-icons">location_on</i></span>
-              </div>
-              <div class="input-wrapper">
-                  <input type="text" class="form-control" placeholder="nbplaces..">
-              </div>
-          </div>
-      </div>
-      <div *ngFor="let covoiturage of offresCovoiturage" class="festival-card" >
+</div>
+<h1 class="titre">Trouvez votre covoiturage pour</h1><br/>
+<h1 class="titre">{{nomFestival}} !</h1>
+<h3 style="text-align: right; margin-right: 15%;">nombre de places à attribuer : {{nbPass}}</h3>
+<div class="search-results">
+    <div class="filtre-recherche">
+        <div class="input-group">
+            <div class="input-wrapper">
+                <input class="form-control" placeholder="Date.." type="date">
+            </div>
+            <div class="input-wrapper">
+                <input class="form-control" placeholder="Lieu départ.." type="text">
+                <span class="input-icon"><i class="material-icons">location_on</i></span>
+            </div>
+            <div class="input-wrapper">
+                <input class="form-control" placeholder="nbplaces.." type="text">
+            </div>
+        </div>
+    </div>
+    <div *ngFor="let covoiturage of offresCovoiturage" class="festival-card">
         <div class="festival-info">
-          <h3 >{{ covoiturage.nomCovoitureur }}</h3>
-          <h3>{{ covoiturage.modeleVoiture }}</h3>
-          <h3>{{ covoiturage.dateDepart }}</h3>
-          <h3>{{ covoiturage.nomCommune }} </h3>
-          <div style="display: flex; align-items: center;flex-direction: row;">
-            <h3 style="margin: 0; display: inline-block;">{{ covoiturage.nbPlaces }} </h3>
-            <mat-icon style="display: inline-flex; align-items: center; margin-left: 0px;"> directions_walk</mat-icon>
-          </div>
-          
-          <h3>{{ covoiturage.tarif }}€</h3>
+            <h3>{{ covoiturage.nomCovoitureur }}</h3>
+            <h3>{{ covoiturage.modeleVoiture }}</h3>
+            <h3>{{ covoiturage.dateDepart }}</h3>
+            <h3>{{ covoiturage.nomCommune }} </h3>
+            <div style="display: flex; align-items: center;flex-direction: row;">
+                <h3 style="margin: 0; display: inline-block;">{{ covoiturage.nbPlaces }} </h3>
+                <mat-icon style="display: inline-flex; align-items: center; margin-left: 0px;"> directions_walk
+                </mat-icon>
+            </div>
+
+            <h3>{{ covoiturage.tarif }}€</h3>
         </div>
         <div class="festival-actions">
-          <mat-icon (click)="onCovoiturageClick(covoiturage, false, $event)"><a>remove_circle_outline</a></mat-icon>
-          <div class="click-count">{{ getClickCount(covoiturage) }}</div>
-          <mat-icon cliquable ="true" (click)="onCovoiturageClick(covoiturage, true, $event)"><a>add_circle_outline</a></mat-icon>
+            <mat-icon (click)="onCovoiturageClick(covoiturage, false, $event)">remove_circle_outline</mat-icon>
+            <div class="click-count">{{ getClickCount(covoiturage) }}</div>
+            <mat-icon (click)="onCovoiturageClick(covoiturage, true, $event)" cliquable="true">add_circle_outline
+            </mat-icon>
         </div>
-        <mat-icon (click)="ajoutPanier(this.currentUser.mail, covoiturage.idEtape,getClickCount(covoiturage))"><a>add_shopping_cart</a></mat-icon>
-      </div>
+        <mat-icon (click)="ajoutPanier(this.currentUser.mail, covoiturage.idEtape,getClickCount(covoiturage))">
+            add_shopping_cart
+        </mat-icon>
     </div>
+</div>
 
-    <!--
-          <div class="pagination">
-      <button (click)="onPageChange(false)" [disabled]="page === 1">Previous</button>
-      <span>{{ page }}</span>
-      <button (click)="onPageChange(true)" [disabled]="!isNextPage">Next</button>
-    </div>
-    -->
+<!--
+      <div class="pagination">
+  <button (click)="onPageChange(false)" [disabled]="page === 1">Previous</button>
+  <span>{{ page }}</span>
+  <button (click)="onPageChange(true)" [disabled]="!isNextPage">Next</button>
+</div>
+-->
 

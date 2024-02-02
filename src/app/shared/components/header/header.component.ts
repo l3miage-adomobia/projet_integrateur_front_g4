@@ -13,9 +13,7 @@ import {ReservationService} from "../../../cart/service/reservation.service";
 })
 export class HeaderComponent implements OnInit {
 
-    panelOpenState = false
     public currentUser: FesticarUser = {name: '', token: '', photoURL: '', mail: ''};
-    private nb_resa = 0;
 
     constructor(private us: UserService, private auth: AuthService, private dialog: MatDialog, private rs: ReservationService) {
     }
@@ -37,36 +35,9 @@ export class HeaderComponent implements OnInit {
         this.us.getUser().subscribe(user => {
             this.currentUser = user;
         });
-        this.loadNbReservations();
-
-    }
-
-    loadNbReservations() {
-        const mailFest = 'user145@example.com';
-        this.rs.getReservations(mailFest).subscribe(
-            (data: any) => {
-                if (data && data.reservations) {
-                    // Mettre à jour le nombre de réservations
-                    this.nb_resa = data.reservations.length;
-                } else {
-                    this.nb_resa = 0;
-                }
-            },
-            error => {
-                console.error('erreur lors de recuperer des reservations', error);
-            }
-        );
     }
 
     logout() {
         this.auth.logout();
-    }
-
-    getNbResa(): number {
-        return this.nb_resa;
-    }
-
-    setNbResa(nb: number) {
-        this.nb_resa = nb;
     }
 }
