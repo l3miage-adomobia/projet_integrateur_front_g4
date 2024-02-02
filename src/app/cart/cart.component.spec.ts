@@ -74,7 +74,7 @@ describe('CartComponent', () => {
         expect(mockReservationService.deleteReservation).toHaveBeenCalledWith(reservationId);
     });
 
-    it('should calculate total price correctly', () => {
+    it('should calculate total price correcctly', () => {
         // Mock reservations data conforming to the Reservation interface
         const mockReservations: Reservation[] = [
             {
