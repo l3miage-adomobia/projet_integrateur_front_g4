@@ -26,16 +26,17 @@ export class CartComponent {
     }
 
     ngOnInit(): void {
-        this.loadReservations();
         this.us.getUser().subscribe(user => {
             this.currentUser = user;
         });
+        this.loadReservations();
 
     }
 
     loadReservations() {
-        const mailFest = 'user145@example.com'; // Utilisez la valeur appropriée
-        this.rs.getReservations(mailFest).subscribe(
+        const mailFest = this.currentUser.mail;
+
+        this.rs.getReservations(this.currentUser.mail.toString()).subscribe(
             (data: any) => {
                 const reservationsTransformed = this.transformApiResponseToReservations(data);
                 this.reservations = new MatTableDataSource(reservationsTransformed);
